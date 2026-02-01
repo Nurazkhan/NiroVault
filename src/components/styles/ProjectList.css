@@ -1,0 +1,64 @@
+.project-list {
+    display: grid;
+    gap: var(--space-lg);
+    animation: fadeIn var(--transition-normal) ease;
+}
+
+.project-list.grid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+}
+
+.project-list.list {
+    grid-template-columns: 1fr;
+}
+
+.project-list.list .project-card {
+    flex-direction: row;
+    height: auto;
+}
+
+.project-list.list .project-thumbnail {
+    width: 120px;
+    height: 80px;
+    flex-shrink: 0;
+}
+
+.project-list.list .project-info {
+    flex: 1;
+    padding: var(--space-md);
+}
+
+/* Skeleton Loading */
+.skeleton-card {
+    background: var(--color-bg-secondary);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+}
+
+.skeleton-content {
+    padding: var(--space-md);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+}
+
+/* Add Card Button */
+.add-card {
+    border: 2px dashed var(--color-border);
+    background: transparent;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-sm);
+    color: var(--color-text-muted);
+    min-height: 200px;
+    transition: all var(--transition-normal);
+    cursor: pointer;
+}
+
+.add-card:hover {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+    background: var(--color-accent-glow);
+}

@@ -1,0 +1,119 @@
+.todo-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+}
+
+.todo-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.todo-stats {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+}
+
+.todo-count {
+    font-size: var(--text-sm);
+    color: var(--color-text-secondary);
+}
+
+.todo-progress {
+    width: 100px;
+}
+
+.todo-input-wrapper {
+    display: flex;
+    gap: var(--space-sm);
+}
+
+.todo-input {
+    flex: 1;
+}
+
+.todo-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-md);
+    padding: var(--space-2xl);
+    text-align: center;
+    color: var(--color-text-muted);
+}
+
+.todo-empty h3 {
+    color: var(--color-text-primary);
+}
+
+.todo-items {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+}
+
+.todo-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: var(--space-md);
+    background: var(--color-bg-tertiary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    transition: all var(--transition-fast);
+}
+
+.todo-item:hover {
+    border-color: var(--color-border-hover);
+}
+
+.todo-item.completed {
+    opacity: 0.6;
+}
+
+.todo-checkbox {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border-radius: var(--radius-sm);
+    border: 2px solid var(--color-border);
+    color: transparent;
+    background: transparent;
+    transition: all var(--transition-fast);
+    flex-shrink: 0;
+}
+
+.todo-checkbox:hover {
+    border-color: var(--color-accent);
+}
+
+.todo-item.completed .todo-checkbox {
+    background: var(--color-success);
+    border-color: var(--color-success);
+    color: white;
+}
+
+.todo-text {
+    flex: 1;
+    color: var(--color-text-primary);
+}
+
+.todo-item.completed .todo-text {
+    text-decoration: line-through;
+    color: var(--color-text-muted);
+}
+
+.todo-delete {
+    opacity: 0;
+    transition: opacity var(--transition-fast);
+}
+
+.todo-item:hover .todo-delete {
+    opacity: 1;
+}
