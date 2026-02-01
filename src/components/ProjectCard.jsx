@@ -23,9 +23,9 @@ function ProjectCard({ project }) {
             onKeyDown={(e) => e.key === 'Enter' && selectProject(project.id)}
         >
             <div className="project-thumbnail">
-                {project.thumbnail ? (
+                {project.thumbnailUrl || project.thumbnail ? (
                     <img
-                        src={URL.createObjectURL(project.thumbnail)}
+                        src={project.thumbnailUrl || URL.createObjectURL(project.thumbnail)}
                         alt={project.name}
                         loading="lazy"
                     />

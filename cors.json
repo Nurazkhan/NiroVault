@@ -1,0 +1,20 @@
+[
+    {
+        "origin": [
+            "http://localhost:3000",
+            "https://nurazkhan.github.io"
+        ],
+        "method": [
+            "GET",
+            "PUT",
+            "POST",
+            "DELETE",
+            "HEAD"
+        ],
+        "responseHeader": [
+            "Content-Type",
+            "x-goog-resumable"
+        ],
+        "maxAgeSeconds": 3600
+    }
+]

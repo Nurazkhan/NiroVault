@@ -10,6 +10,7 @@ import {
     LayoutGrid,
     List
 } from 'lucide-react';
+import Sidebar from './Sidebar';
 import './styles/Layout.css';
 
 function Layout({ children, onCreateProject }) {
@@ -26,58 +27,8 @@ function Layout({ children, onCreateProject }) {
     return (
         <div className={`layout ${sidebarOpen ? 'sidebar-open' : 'sidebar-closed'}`}>
             {/* Sidebar */}
-            <aside className="sidebar">
-                <div className="sidebar-header">
-                    <div className="logo">
-                        <Cpu className="logo-icon" />
-                        <span className="logo-text">NiroVault</span>
-                    </div>
-                    <button className="btn btn-icon btn-ghost" onClick={toggleSidebar}>
-                        <ChevronLeft />
-                    </button>
-                </div>
-
-                <div className="sidebar-content">
-                    <button className="btn btn-primary sidebar-create" onClick={onCreateProject}>
-                        <Plus size={18} />
-                        <span>New Project</span>
-                    </button>
-
-                    <div className="sidebar-search">
-                        <Search size={16} />
-                        <input type="text" placeholder="Search projects..." className="input" />
-                    </div>
-
-                    <nav className="sidebar-nav">
-                        <div className="nav-section">
-                            <span className="nav-section-title">Projects</span>
-                            <ul className="nav-list">
-                                {projects.map(project => (
-                                    <li key={project.id}>
-                                        <button
-                                            className={`nav-item ${currentProject?.id === project.id ? 'active' : ''}`}
-                                            onClick={() => selectProject(project.id)}
-                                        >
-                                            <FolderOpen size={16} />
-                                            <span className="truncate">{project.name}</span>
-                                        </button>
-                                    </li>
-                                ))}
-                                {projects.length === 0 && (
-                                    <li className="nav-empty">No projects yet</li>
-                                )}
-                            </ul>
-                        </div>
-                    </nav>
-                </div>
-
-                <div className="sidebar-footer">
-                    <button className="btn btn-ghost nav-item">
-                        <Settings size={16} />
-                        <span>Settings</span>
-                    </button>
-                </div>
-            </aside>
+            {/* Sidebar */}
+            <Sidebar />
 
             {/* Main Content */}
             <main className="main-content">

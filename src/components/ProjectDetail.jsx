@@ -9,6 +9,7 @@ import CodeViewer from './CodeViewer';
 import FirmwareFlasher from './FirmwareFlasher';
 import FileUploader from './FileUploader';
 import CreateVersionModal from './CreateVersionModal';
+import EditProjectModal from './EditProjectModal';
 import {
     ArrowLeft,
     Edit,
@@ -51,6 +52,7 @@ function ProjectDetail() {
     const [showUploader, setShowUploader] = useState(false);
     const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
     const [showVersionModal, setShowVersionModal] = useState(false);
+    const [showEditModal, setShowEditModal] = useState(false);
 
     if (!currentProject) return null;
 
@@ -125,7 +127,7 @@ function ProjectDetail() {
                 </button>
 
                 <div className="detail-actions">
-                    <button className="btn btn-secondary">
+                    <button className="btn btn-secondary" onClick={() => setShowEditModal(true)}>
                         <Edit size={16} />
                         Edit
                     </button>
@@ -141,8 +143,11 @@ function ProjectDetail() {
             {/* Project Info */}
             <div className="detail-info">
                 <div className="detail-thumbnail">
-                    {currentProject.thumbnail ? (
-                        <img src={URL.createObjectURL(currentProject.thumbnail)} alt={currentProject.name} />
+                    {currentProject.thumbnailUrl || currentProject.thumbnail ? (
+                        <img
+                            src={currentProject.thumbnailUrl || URL.createObjectURL(currentProject.thumbnail)}
+                            alt={currentProject.name}
+                        />
                     ) : (
                         <div className="detail-thumbnail-placeholder">
                             <Cpu size={48} />
@@ -160,6 +165,16 @@ function ProjectDetail() {
                         <div className="version-badge">
                             <GitBranch size={14} />
                             <span>{currentVersion.name}</span>
+                        </div>
+                    )}
+
+                    {currentProject.tags && currentProject.tags.length > 0 && (
+                        <div className="tags-list">
+                            {currentProject.tags.map((tag, i) => (
+                                <span key={i} className="badge badge-sm">
+                                    <Tag size={12} /> {tag}
+                                </span>
+                            ))}
                         </div>
                     )}
                 </div>
@@ -225,6 +240,14 @@ function ProjectDetail() {
                     projectId={currentProject.id}
                     parentVersion={currentVersion}
                     versions={versions}
+                />
+            )}
+
+            {/* Edit Project Modal */}
+            {showEditModal && (
+                <EditProjectModal
+                    onClose={() => setShowEditModal(false)}
+                    project={currentProject}
                 />
             )}
 

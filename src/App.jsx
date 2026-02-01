@@ -4,28 +4,32 @@ import Layout from './components/Layout';
 import ProjectList from './components/ProjectList';
 import ProjectDetail from './components/ProjectDetail';
 import CreateProjectModal from './components/CreateProjectModal';
+import AuthGuard from './components/AuthGuard';
 import './App.css';
 
 function App() {
-    const { currentProject, loadProjects } = useStore();
+    const { currentProject, initAuth } = useStore();
     const [showCreateModal, setShowCreateModal] = useState(false);
 
     useEffect(() => {
-        loadProjects();
+        const unsubscribe = initAuth();
+        return () => unsubscribe();
     }, []);
 
     return (
-        <Layout onCreateProject={() => setShowCreateModal(true)}>
-            {currentProject ? (
-                <ProjectDetail />
-            ) : (
-                <ProjectList onCreateProject={() => setShowCreateModal(true)} />
-            )}
+        <AuthGuard>
+            <Layout onCreateProject={() => setShowCreateModal(true)}>
+                {currentProject ? (
+                    <ProjectDetail />
+                ) : (
+                    <ProjectList onCreateProject={() => setShowCreateModal(true)} />
+                )}
 
-            {showCreateModal && (
-                <CreateProjectModal onClose={() => setShowCreateModal(false)} />
-            )}
-        </Layout>
+                {showCreateModal && (
+                    <CreateProjectModal onClose={() => setShowCreateModal(false)} />
+                )}
+            </Layout>
+        </AuthGuard>
     );
 }
 
