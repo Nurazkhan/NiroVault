@@ -10,6 +10,7 @@ import FirmwareFlasher from './FirmwareFlasher';
 import FileUploader from './FileUploader';
 import CreateVersionModal from './CreateVersionModal';
 import EditProjectModal from './EditProjectModal';
+import TextEntriesManager from './TextEntriesManager';
 import {
     ArrowLeft,
     Edit,
@@ -18,6 +19,7 @@ import {
     Image,
     Video,
     FileCode,
+    FileText,
     Link,
     Cpu,
     CircuitBoard,
@@ -30,6 +32,7 @@ import './styles/ProjectDetail.css';
 const TABS = [
     { id: 'gallery', label: 'Gallery', icon: Image },
     { id: 'code', label: 'Code', icon: FileCode },
+    { id: 'notes', label: 'Notes', icon: FileText },
     { id: 'schematics', label: 'Schematics', icon: CircuitBoard },
     { id: 'flasher', label: 'USB Flash', icon: Cpu },
     { id: 'links', label: 'AI Chats', icon: Link },
@@ -73,6 +76,8 @@ function ProjectDetail() {
                 return resources.filter(r => r.type === 'bin' || r.type === 'ino');
             case 'schematics':
                 return resources.filter(r => r.type === 'schematic');
+            case 'notes':
+                return resources.filter(r => r.type === 'note');
             case 'links':
                 return resources.filter(r => r.type === 'link');
             default:
@@ -104,6 +109,8 @@ function ProjectDetail() {
                         type="schematic"
                     />
                 );
+            case 'notes':
+                return <TextEntriesManager resources={getFilteredResources()} />;
             case 'flasher':
                 return <FirmwareFlasher resources={resources.filter(r => r.type === 'bin')} />;
             case 'links':
