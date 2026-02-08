@@ -14,28 +14,44 @@ function CodeViewer({ resources, onAdd }) {
     const handleFileClick = async (resource) => {
         setSelectedFile(resource);
 
-        if (resource.type === 'ino' && resource.data) {
-            const text = await resource.data.text();
-            setFileContent(text);
+        if (resource.type === 'ino') {
+            try {
+                if (resource.url) {
+                    const response = await fetch(resource.url);
+                    const text = await response.text();
+                    setFileContent(text);
+                } else if (resource.data instanceof File) {
+                    // Fallback for potential local-only state before sync?
+                    const text = await resource.data.text();
+                    setFileContent(text);
+                } else {
+                    setFileContent('Error: File content unavailable.');
+                }
+            } catch (error) {
+                console.error("Failed to load file content:", error);
+                setFileContent("Error loading file content.");
+            }
         } else {
             setFileContent('');
         }
     };
 
     const handleDownload = (resource) => {
-        if (!resource.data) return;
-        const url = URL.createObjectURL(resource.data);
+        const url = resource.url || (resource.data ? URL.createObjectURL(resource.data) : null);
+        if (!url) return;
+
         const a = document.createElement('a');
         a.href = url;
         a.download = resource.name;
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
-        URL.revokeObjectURL(url);
+        if (!resource.url) URL.revokeObjectURL(url);
     };
 
     const formatFileSize = (bytes) => {
-        if (!bytes) return '0 B';
+        if (!bytes && bytes !== 0) return 'Unknown';
+        if (bytes === 0) return '0 B';
         const k = 1024;
         const sizes = ['B', 'KB', 'MB'];
         const i = Math.floor(Math.log(bytes) / Math.log(k));
@@ -74,7 +90,7 @@ function CodeViewer({ resources, onAdd }) {
                                     <span className="badge badge-accent">BIN</span>
                                     <span className="code-file-name truncate">{file.name}</span>
                                     <span className="code-file-size">
-                                        {formatFileSize(file.data?.size)}
+                                        {formatFileSize(file.metadata?.size || file.data?.size)}
                                     </span>
                                 </button>
                             </li>
@@ -100,7 +116,7 @@ function CodeViewer({ resources, onAdd }) {
                                     <span className="badge badge-success">INO</span>
                                     <span className="code-file-name truncate">{file.name}</span>
                                     <span className="code-file-size">
-                                        {formatFileSize(file.data?.size)}
+                                        {formatFileSize(file.metadata?.size || file.data?.size)}
                                     </span>
                                 </button>
                             </li>
@@ -124,7 +140,7 @@ function CodeViewer({ resources, onAdd }) {
                             <div className="code-file-info">
                                 <h3>{selectedFile.name}</h3>
                                 <span className="text-muted">
-                                    {formatFileSize(selectedFile.data?.size)}
+                                    {formatFileSize(selectedFile.metadata?.size || selectedFile.data?.size)}
                                 </span>
                             </div>
                             <div className="code-actions">

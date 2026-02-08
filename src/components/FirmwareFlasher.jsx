@@ -89,7 +89,18 @@ function FirmwareFlasher({ resources }) {
             addLog(`Starting flash: ${selectedFile.name}`);
 
             // Read the binary file
-            const fileData = await selectedFile.data.arrayBuffer();
+            let fileData;
+            if (selectedFile.url) {
+                addLog('Downloading firmware from cloud...');
+                const response = await fetch(selectedFile.url);
+                if (!response.ok) throw new Error('Failed to download firmware');
+                fileData = await response.arrayBuffer();
+            } else if (selectedFile.data) {
+                fileData = await selectedFile.data.arrayBuffer();
+            } else {
+                throw new Error('Firmware data unavailable');
+            }
+
             const data = new Uint8Array(fileData);
             const totalBytes = data.length;
 
@@ -227,7 +238,7 @@ function FirmwareFlasher({ resources }) {
                                 <option value="">Select a .bin file</option>
                                 {binFiles.map(file => (
                                     <option key={file.id} value={file.id}>
-                                        {file.name} ({(file.data?.size / 1024).toFixed(1)} KB)
+                                        {file.name} ({((file.metadata?.size || file.data?.size) / 1024).toFixed(1)} KB)
                                     </option>
                                 ))}
                             </select>
