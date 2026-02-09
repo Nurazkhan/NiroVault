@@ -204,8 +204,11 @@ export const useStore = create((set, get) => ({
 
     // Update resource metadata (not file content)
     updateResource: async (id, data) => {
-        // Not implemented in DB yet as 'update', but basically metadata update
-        // Skipping for now unless needed
+        const projectId = get().currentProject.id;
+        const versionId = get().currentVersion.id;
+        await resourceOps.update(projectId, versionId, id, data);
+        const resources = await resourceOps.getByVersion(projectId, versionId);
+        set({ resources });
     },
 
     deleteResource: async (id) => {

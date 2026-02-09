@@ -267,6 +267,12 @@ export const resourceOps = {
         }));
     },
 
+    async update(projectId, versionId, id, data) {
+        const userRef = getUserRef();
+        const docRef = doc(userRef, 'projects', projectId, 'versions', versionId, 'resources', id);
+        await updateDoc(docRef, data);
+    },
+
     async delete(projectId, versionId, id) {
         const userRef = getUserRef();
         const docRef = doc(userRef, 'projects', projectId, 'versions', versionId, 'resources', id);

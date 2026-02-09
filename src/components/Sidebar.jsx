@@ -63,10 +63,14 @@ function Sidebar() {
     return (
         <aside className="sidebar">
             <div className="sidebar-header">
-                <div className="logo">
+                <button
+                    className="logo"
+                    onClick={() => selectProject(null)}
+                    title="Go to home"
+                >
                     <Cpu className="logo-icon" />
                     <span className="logo-text">NiroVault</span>
-                </div>
+                </button>
                 <button className="btn btn-icon btn-ghost" onClick={toggleSidebar}>
                     <ChevronLeft />
                 </button>
