@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useStore } from '../lib/store';
-import { FileText, Plus, Trash2, Clock, Search, Edit2, Check, X } from 'lucide-react';
+import { FileText, Plus, Trash2, Clock, Search, Edit2, Check, X, LayoutGrid, List } from 'lucide-react';
 import './styles/TextEntriesManager.css';
 
 function TextEntriesManager({ resources }) {
@@ -10,6 +10,7 @@ function TextEntriesManager({ resources }) {
     const [searchQuery, setSearchQuery] = useState('');
     const [editingId, setEditingId] = useState(null);
     const [editText, setEditText] = useState('');
+    const [viewMode, setViewMode] = useState('list'); // 'list' | 'cards'
 
     const handleAddEntry = async () => {
         if (!newEntry.trim() || !currentVersion) return;
@@ -85,6 +86,18 @@ function TextEntriesManager({ resources }) {
         return content.toLowerCase().includes(searchQuery.toLowerCase());
     });
 
+    // Subtle background tint per card index
+    const getCardTint = (index) => {
+        const tints = [
+            'var(--note-tint-1, rgba(255,255,255,0.02))',
+            'var(--note-tint-2, rgba(100,180,255,0.04))',
+            'var(--note-tint-3, rgba(180,100,255,0.03))',
+            'var(--note-tint-4, rgba(100,255,180,0.03))',
+            'var(--note-tint-5, rgba(255,200,100,0.03))',
+        ];
+        return tints[index % tints.length];
+    };
+
     return (
         <div className="text-entries">
             <div className="entries-header">
@@ -92,15 +105,33 @@ function TextEntriesManager({ resources }) {
                     <FileText size={18} />
                     Project Notes
                 </h3>
-                <div className="entries-search">
-                    <Search size={14} />
-                    <input
-                        type="text"
-                        placeholder="Search notes..."
-                        value={searchQuery}
-                        onChange={(e) => setSearchQuery(e.target.value)}
-                        className="search-input"
-                    />
+                <div className="entries-header-right">
+                    <div className="entries-search">
+                        <Search size={14} />
+                        <input
+                            type="text"
+                            placeholder="Search notes..."
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            className="search-input"
+                        />
+                    </div>
+                    <div className="entries-view-toggle">
+                        <button
+                            className={`btn btn-icon btn-ghost btn-sm ${viewMode === 'list' ? 'active' : ''}`}
+                            onClick={() => setViewMode('list')}
+                            title="List view"
+                        >
+                            <List size={16} />
+                        </button>
+                        <button
+                            className={`btn btn-icon btn-ghost btn-sm ${viewMode === 'cards' ? 'active' : ''}`}
+                            onClick={() => setViewMode('cards')}
+                            title="Card view"
+                        >
+                            <LayoutGrid size={16} />
+                        </button>
+                    </div>
                 </div>
             </div>
 
@@ -132,9 +163,13 @@ function TextEntriesManager({ resources }) {
                         <p>{searchQuery ? 'Try a different search term.' : 'Add notes, ideas, or logs for this version.'}</p>
                     </div>
                 ) : (
-                    <div className="entries-list">
-                        {filteredResources.map((entry) => (
-                            <div key={entry.id} className={`entry-card ${editingId === entry.id ? 'editing' : ''}`}>
+                    <div className={`entries-list ${viewMode === 'cards' ? 'entries-grid' : ''}`}>
+                        {filteredResources.map((entry, index) => (
+                            <div
+                                key={entry.id}
+                                className={`entry-card ${editingId === entry.id ? 'editing' : ''}`}
+                                style={{ background: getCardTint(index) }}
+                            >
                                 <div className="entry-header">
                                     <span className="entry-timestamp">
                                         <Clock size={12} />

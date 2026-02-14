@@ -10,10 +10,11 @@ import {
     Settings,
     MoreVertical,
     Trash2,
-    LogOut
+    LogOut,
+    Lightbulb
 } from 'lucide-react';
 
-function Sidebar() {
+function Sidebar({ onCreateProject }) {
     const {
         projects,
         folders,
@@ -23,7 +24,9 @@ function Sidebar() {
         createFolder,
         deleteFolder,
         logout,
-        user
+        user,
+        currentView,
+        setCurrentView
     } = useStore();
 
     const [search, setSearch] = useState('');
@@ -65,7 +68,7 @@ function Sidebar() {
             <div className="sidebar-header">
                 <button
                     className="logo"
-                    onClick={() => selectProject(null)}
+                    onClick={() => { selectProject(null); setCurrentView('projects'); }}
                     title="Go to home"
                 >
                     <Cpu className="logo-icon" />
@@ -144,7 +147,7 @@ function Sidebar() {
                                             <li key={project.id}>
                                                 <button
                                                     className={`nav-item ${currentProject?.id === project.id ? 'active' : ''}`}
-                                                    onClick={() => selectProject(project.id)}
+                                                    onClick={() => { selectProject(project.id); setCurrentView('projects'); }}
                                                 >
                                                     <span className="truncate">{project.name}</span>
                                                 </button>
@@ -161,13 +164,24 @@ function Sidebar() {
 
                     {/* Root Projects */}
                     <div className="nav-section">
-                        <span className="nav-section-title">Root Projects</span>
+                        <div className="nav-section-header-static">
+                            <span className="nav-section-title">Root Projects</span>
+                            {onCreateProject && (
+                                <button
+                                    className="btn btn-icon btn-ghost btn-xs"
+                                    onClick={onCreateProject}
+                                    title="New Project"
+                                >
+                                    <Plus size={14} />
+                                </button>
+                            )}
+                        </div>
                         <ul className="nav-list">
                             {rootProjects.map(project => (
                                 <li key={project.id}>
                                     <button
                                         className={`nav-item ${currentProject?.id === project.id ? 'active' : ''}`}
-                                        onClick={() => selectProject(project.id)}
+                                        onClick={() => { selectProject(project.id); setCurrentView('projects'); }}
                                     >
                                         <span className="truncate">{project.name}</span>
                                     </button>
@@ -182,6 +196,16 @@ function Sidebar() {
             </div>
 
             <div className="sidebar-footer">
+                <button
+                    className={`btn btn-ghost nav-item ${currentView === 'inspiration' ? 'active' : ''}`}
+                    onClick={() => {
+                        selectProject(null);
+                        setCurrentView('inspiration');
+                    }}
+                >
+                    <Lightbulb size={16} />
+                    <span>Inspiration</span>
+                </button>
                 <button className="btn btn-ghost nav-item" onClick={logout}>
                     <LogOut size={16} />
                     <span>Sign Out</span>

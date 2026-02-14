@@ -4,11 +4,12 @@ import Layout from './components/Layout';
 import ProjectList from './components/ProjectList';
 import ProjectDetail from './components/ProjectDetail';
 import CreateProjectModal from './components/CreateProjectModal';
+import InspirationBoard from './components/InspirationBoard';
 import AuthGuard from './components/AuthGuard';
 import './App.css';
 
 function App() {
-    const { currentProject, initAuth } = useStore();
+    const { currentProject, currentView, setCurrentView, initAuth } = useStore();
     const [showCreateModal, setShowCreateModal] = useState(false);
 
     useEffect(() => {
@@ -16,14 +17,25 @@ function App() {
         return () => unsubscribe();
     }, []);
 
+    const handleCreateProject = () => {
+        setCurrentView('projects');
+        setShowCreateModal(true);
+    };
+
+    const renderContent = () => {
+        if (currentView === 'inspiration') {
+            return <InspirationBoard />;
+        }
+        if (currentProject) {
+            return <ProjectDetail />;
+        }
+        return <ProjectList onCreateProject={handleCreateProject} />;
+    };
+
     return (
         <AuthGuard>
-            <Layout onCreateProject={() => setShowCreateModal(true)}>
-                {currentProject ? (
-                    <ProjectDetail />
-                ) : (
-                    <ProjectList onCreateProject={() => setShowCreateModal(true)} />
-                )}
+            <Layout onCreateProject={handleCreateProject}>
+                {renderContent()}
 
                 {showCreateModal && (
                     <CreateProjectModal onClose={() => setShowCreateModal(false)} />

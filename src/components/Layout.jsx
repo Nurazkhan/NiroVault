@@ -28,7 +28,7 @@ function Layout({ children, onCreateProject }) {
         <div className={`layout ${sidebarOpen ? 'sidebar-open' : 'sidebar-closed'}`}>
             {/* Sidebar */}
             {/* Sidebar */}
-            <Sidebar />
+            <Sidebar onCreateProject={onCreateProject} />
 
             {/* Main Content */}
             <main className="main-content">

@@ -108,6 +108,13 @@
     padding: var(--space-sm);
 }
 
+.nav-section-header-static {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-right: var(--space-xs);
+}
+
 .nav-list {
     list-style: none;
     display: flex;

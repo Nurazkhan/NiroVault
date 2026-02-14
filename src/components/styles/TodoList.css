@@ -87,6 +87,7 @@
     background: transparent;
     transition: all var(--transition-fast);
     flex-shrink: 0;
+    cursor: pointer;
 }
 
 .todo-checkbox:hover {
@@ -99,14 +100,29 @@
     color: white;
 }
 
-.todo-text {
+.todo-text-wrapper {
     flex: 1;
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-sm);
+    min-width: 0;
+}
+
+.todo-text {
     color: var(--color-text-primary);
 }
 
 .todo-item.completed .todo-text {
     text-decoration: line-through;
     color: var(--color-text-muted);
+}
+
+.todo-time {
+    font-size: 0.65rem;
+    color: var(--color-text-muted, #666);
+    opacity: 0.5;
+    flex-shrink: 0;
+    white-space: nowrap;
 }
 
 .todo-delete {

@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { projectOps, versionOps, resourceOps, folderOps } from './db';
+import { projectOps, versionOps, resourceOps, folderOps, inspirationOps } from './db';
 import { auth } from './firebase';
 import { onAuthStateChanged, signInWithPopup, GoogleAuthProvider, signOut } from 'firebase/auth';
 
@@ -16,8 +16,10 @@ export const useStore = create((set, get) => ({
     versions: [],
     resources: [],
     view: 'list', // 'list' | 'grid'
+    currentView: 'projects', // 'projects' | 'inspiration'
     sidebarOpen: true,
     isLoading: false,
+    inspirations: [],
 
     // Auth Actions
     initAuth: () => {
@@ -26,8 +28,9 @@ export const useStore = create((set, get) => ({
             if (user) {
                 await get().loadProjects();
                 await get().loadFolders();
+                await get().loadInspirations();
             } else {
-                set({ projects: [], folders: [], currentProject: null });
+                set({ projects: [], folders: [], currentProject: null, inspirations: [] });
             }
         });
         return unsubscribe;
@@ -50,6 +53,7 @@ export const useStore = create((set, get) => ({
 
     // View actions
     setView: (view) => set({ view }),
+    setCurrentView: (currentView) => set({ currentView }),
     toggleSidebar: () => set((state) => ({ sidebarOpen: !state.sidebarOpen })),
     setLoading: (isLoading) => set({ isLoading }),
 
@@ -217,5 +221,32 @@ export const useStore = create((set, get) => ({
         await resourceOps.delete(projectId, versionId, id);
         const resources = await resourceOps.getByVersion(projectId, versionId);
         set({ resources });
+    },
+
+    // Inspiration actions
+    loadInspirations: async () => {
+        if (!get().user) return;
+        try {
+            const inspirations = await inspirationOps.getAll();
+            set({ inspirations });
+        } catch (error) {
+            console.error('Failed to load inspirations:', error);
+        }
+    },
+
+    addInspiration: async (data) => {
+        const id = await inspirationOps.create(data);
+        await get().loadInspirations();
+        return id;
+    },
+
+    updateInspiration: async (id, data) => {
+        await inspirationOps.update(id, data);
+        await get().loadInspirations();
+    },
+
+    deleteInspiration: async (id) => {
+        await inspirationOps.delete(id);
+        await get().loadInspirations();
     }
 }));

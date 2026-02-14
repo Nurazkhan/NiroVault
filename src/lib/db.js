@@ -314,3 +314,72 @@ export const folderOps = {
         await deleteDoc(doc(userRef, 'folders', id));
     }
 };
+
+// Inspiration operations
+export const inspirationOps = {
+    async create(data) {
+        const userRef = getUserRef();
+        const inspirationsRef = collection(userRef, 'inspirations');
+
+        let imageUrl = null;
+
+        // Upload image if present
+        if (data.image instanceof File) {
+            const storagePath = `users/${auth.currentUser.uid}/inspirations/${Date.now()}_${data.image.name}`;
+            const storageRef = ref(storage, storagePath);
+            await uploadBytes(storageRef, data.image);
+            imageUrl = await getDownloadURL(storageRef);
+        }
+
+        const docRef = await addDoc(inspirationsRef, {
+            title: data.title || '',
+            description: data.description || '',
+            tags: data.tags || [],
+            imageUrl,
+            url: data.url || '',
+            createdAt: serverTimestamp(),
+            updatedAt: serverTimestamp()
+        });
+
+        return docRef.id;
+    },
+
+    async getAll() {
+        const user = auth.currentUser;
+        if (!user) return [];
+
+        const userRef = doc(db, 'users', user.uid);
+        const q = query(collection(userRef, 'inspirations'), orderBy('createdAt', 'desc'));
+        const snapshot = await getDocs(q);
+
+        return snapshot.docs.map(d => ({
+            id: d.id,
+            ...d.data(),
+            createdAt: d.data().createdAt?.toDate() || new Date(),
+            updatedAt: d.data().updatedAt?.toDate() || new Date()
+        }));
+    },
+
+    async update(id, data) {
+        const userRef = getUserRef();
+        const docRef = doc(userRef, 'inspirations', id);
+
+        const updateData = { ...data, updatedAt: serverTimestamp() };
+
+        // Handle image update
+        if (data.image instanceof File) {
+            const storagePath = `users/${auth.currentUser.uid}/inspirations/${Date.now()}_${data.image.name}`;
+            const storageRef = ref(storage, storagePath);
+            await uploadBytes(storageRef, data.image);
+            updateData.imageUrl = await getDownloadURL(storageRef);
+            delete updateData.image;
+        }
+
+        await updateDoc(docRef, updateData);
+    },
+
+    async delete(id) {
+        const userRef = getUserRef();
+        await deleteDoc(doc(userRef, 'inspirations', id));
+    }
+};

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useStore } from '../lib/store';
-import { CheckSquare, Square, Check, Plus, Trash2, GripVertical } from 'lucide-react';
+import { CheckSquare, Square, Check, Plus, Trash2 } from 'lucide-react';
 import './styles/TodoList.css';
 
 function TodoList({ version }) {
@@ -27,6 +27,7 @@ function TodoList({ version }) {
     };
 
     const toggleTodo = (todoId) => {
+        // Optimistic: update store immediately without awaiting
         updateVersion(version.id, {
             todos: todos.map(t =>
                 t.id === todoId ? { ...t, completed: !t.completed } : t
@@ -44,6 +45,23 @@ function TodoList({ version }) {
         if (e.key === 'Enter') {
             addTodo();
         }
+    };
+
+    const formatTimeAgo = (date) => {
+        if (!date) return '';
+        const d = date instanceof Date ? date : new Date(date?.seconds ? date.seconds * 1000 : date);
+        if (isNaN(d.getTime())) return '';
+        const now = new Date();
+        const diffMs = now - d;
+        const diffMins = Math.floor(diffMs / 60000);
+        const diffHours = Math.floor(diffMs / 3600000);
+        const diffDays = Math.floor(diffMs / 86400000);
+
+        if (diffMins < 1) return 'just now';
+        if (diffMins < 60) return `${diffMins}m ago`;
+        if (diffHours < 24) return `${diffHours}h ago`;
+        if (diffDays < 30) return `${diffDays}d ago`;
+        return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
     };
 
     const completedCount = todos.filter(t => t.completed).length;
@@ -110,7 +128,12 @@ function TodoList({ version }) {
                                 )}
                             </button>
 
-                            <span className="todo-text">{todo.text}</span>
+                            <div className="todo-text-wrapper">
+                                <span className="todo-text">{todo.text}</span>
+                                {todo.createdAt && (
+                                    <span className="todo-time">{formatTimeAgo(todo.createdAt)}</span>
+                                )}
+                            </div>
 
                             <button
                                 className="btn btn-icon btn-ghost btn-sm todo-delete"
