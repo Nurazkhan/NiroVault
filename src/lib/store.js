@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { projectOps, versionOps, resourceOps, folderOps, inspirationOps } from './db';
+import { projectOps, versionOps, resourceOps, folderOps, inspirationOps, globalTaskOps, globalNoteOps } from './db';
 import { auth } from './firebase';
 import { onAuthStateChanged, signInWithPopup, GoogleAuthProvider, signOut } from 'firebase/auth';
 
@@ -16,10 +16,12 @@ export const useStore = create((set, get) => ({
     versions: [],
     resources: [],
     view: 'list', // 'list' | 'grid'
-    currentView: 'projects', // 'projects' | 'inspiration'
+    currentView: 'projects', // 'projects' | 'inspiration' | 'tasks'
     sidebarOpen: true,
     isLoading: false,
     inspirations: [],
+    globalTasks: [],
+    globalNotes: [],
 
     // Auth Actions
     initAuth: () => {
@@ -29,8 +31,10 @@ export const useStore = create((set, get) => ({
                 await get().loadProjects();
                 await get().loadFolders();
                 await get().loadInspirations();
+                await get().loadGlobalTasks();
+                await get().loadGlobalNotes();
             } else {
-                set({ projects: [], folders: [], currentProject: null, inspirations: [] });
+                set({ projects: [], folders: [], currentProject: null, inspirations: [], globalTasks: [], globalNotes: [] });
             }
         });
         return unsubscribe;
@@ -248,5 +252,57 @@ export const useStore = create((set, get) => ({
     deleteInspiration: async (id) => {
         await inspirationOps.delete(id);
         await get().loadInspirations();
+    },
+
+    // Global Task actions
+    loadGlobalTasks: async () => {
+        if (!get().user) return;
+        try {
+            const globalTasks = await globalTaskOps.getAll();
+            set({ globalTasks });
+        } catch (error) {
+            console.error('Failed to load global tasks:', error);
+        }
+    },
+
+    addGlobalTask: async (text) => {
+        await globalTaskOps.create({ text });
+        await get().loadGlobalTasks();
+    },
+
+    toggleGlobalTask: async (id, completed) => {
+        await globalTaskOps.update(id, { completed: !completed });
+        await get().loadGlobalTasks();
+    },
+
+    deleteGlobalTask: async (id) => {
+        await globalTaskOps.delete(id);
+        await get().loadGlobalTasks();
+    },
+
+    // Global Note actions
+    loadGlobalNotes: async () => {
+        if (!get().user) return;
+        try {
+            const globalNotes = await globalNoteOps.getAll();
+            set({ globalNotes });
+        } catch (error) {
+            console.error('Failed to load global notes:', error);
+        }
+    },
+
+    addGlobalNote: async (content) => {
+        await globalNoteOps.create({ content });
+        await get().loadGlobalNotes();
+    },
+
+    updateGlobalNote: async (id, content) => {
+        await globalNoteOps.update(id, { content });
+        await get().loadGlobalNotes();
+    },
+
+    deleteGlobalNote: async (id) => {
+        await globalNoteOps.delete(id);
+        await get().loadGlobalNotes();
     }
 }));

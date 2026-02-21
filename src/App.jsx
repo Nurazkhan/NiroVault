@@ -5,6 +5,7 @@ import ProjectList from './components/ProjectList';
 import ProjectDetail from './components/ProjectDetail';
 import CreateProjectModal from './components/CreateProjectModal';
 import InspirationBoard from './components/InspirationBoard';
+import GlobalTasksPage from './components/GlobalTasksPage';
 import AuthGuard from './components/AuthGuard';
 import './App.css';
 
@@ -25,6 +26,9 @@ function App() {
     const renderContent = () => {
         if (currentView === 'inspiration') {
             return <InspirationBoard />;
+        }
+        if (currentView === 'tasks') {
+            return <GlobalTasksPage />;
         }
         if (currentProject) {
             return <ProjectDetail />;

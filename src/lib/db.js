@@ -383,3 +383,127 @@ export const inspirationOps = {
         await deleteDoc(doc(userRef, 'inspirations', id));
     }
 };
+
+// Global task operations (not tied to any project)
+export const globalTaskOps = {
+    async create(data) {
+        const userRef = getUserRef();
+        const tasksRef = collection(userRef, 'globalTasks');
+        const docRef = await addDoc(tasksRef, {
+            text: data.text,
+            completed: false,
+            createdAt: serverTimestamp()
+        });
+        return docRef.id;
+    },
+
+    async getAll() {
+        const user = auth.currentUser;
+        if (!user) return [];
+        const userRef = doc(db, 'users', user.uid);
+        const q = query(collection(userRef, 'globalTasks'), orderBy('createdAt', 'desc'));
+        const snapshot = await getDocs(q);
+        return snapshot.docs.map(d => ({
+            id: d.id,
+            ...d.data(),
+            createdAt: d.data().createdAt?.toDate() || new Date()
+        }));
+    },
+
+    async update(id, data) {
+        const userRef = getUserRef();
+        await updateDoc(doc(userRef, 'globalTasks', id), data);
+    },
+
+    async delete(id) {
+        const userRef = getUserRef();
+        await deleteDoc(doc(userRef, 'globalTasks', id));
+    }
+};
+
+// Global note operations (not tied to any project)
+export const globalNoteOps = {
+    async create(data) {
+        const userRef = getUserRef();
+        const notesRef = collection(userRef, 'globalNotes');
+        const docRef = await addDoc(notesRef, {
+            content: data.content,
+            createdAt: serverTimestamp()
+        });
+        return docRef.id;
+    },
+
+    async getAll() {
+        const user = auth.currentUser;
+        if (!user) return [];
+        const userRef = doc(db, 'users', user.uid);
+        const q = query(collection(userRef, 'globalNotes'), orderBy('createdAt', 'desc'));
+        const snapshot = await getDocs(q);
+        return snapshot.docs.map(d => ({
+            id: d.id,
+            ...d.data(),
+            createdAt: d.data().createdAt?.toDate() || new Date()
+        }));
+    },
+
+    async update(id, data) {
+        const userRef = getUserRef();
+        await updateDoc(doc(userRef, 'globalNotes', id), data);
+    },
+
+    async delete(id) {
+        const userRef = getUserRef();
+        await deleteDoc(doc(userRef, 'globalNotes', id));
+    }
+};
+
+// Aggregate all tasks and notes from every project's current version
+export const getAllProjectTasksAndNotes = async () => {
+    const user = auth.currentUser;
+    if (!user) return [];
+
+    const userRef = doc(db, 'users', user.uid);
+    const projectsSnap = await getDocs(
+        query(collection(userRef, 'projects'), orderBy('updatedAt', 'desc'))
+    );
+
+    const results = [];
+
+    for (const projDoc of projectsSnap.docs) {
+        const project = { id: projDoc.id, ...projDoc.data() };
+        if (!project.currentVersionId) continue;
+
+        try {
+            const versionRef = doc(userRef, 'projects', project.id, 'versions', project.currentVersionId);
+            const versionSnap = await getDoc(versionRef);
+            if (!versionSnap.exists()) continue;
+
+            const versionData = versionSnap.data();
+
+            // Get notes (resources with type 'note')
+            const resourcesSnap = await getDocs(
+                query(
+                    collection(userRef, 'projects', project.id, 'versions', project.currentVersionId, 'resources'),
+                    where('type', '==', 'note')
+                )
+            );
+            const notes = resourcesSnap.docs.map(d => ({
+                id: d.id,
+                ...d.data(),
+                createdAt: d.data().createdAt?.toDate() || new Date()
+            }));
+
+            results.push({
+                projectId: project.id,
+                projectName: project.name,
+                versionId: project.currentVersionId,
+                todos: versionData.todos || [],
+                notes
+            });
+        } catch (err) {
+            console.error(`Failed to load data for project ${project.name}:`, err);
+        }
+    }
+
+    return results;
+};

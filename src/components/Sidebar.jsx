@@ -11,7 +11,8 @@ import {
     MoreVertical,
     Trash2,
     LogOut,
-    Lightbulb
+    Lightbulb,
+    CheckSquare
 } from 'lucide-react';
 
 function Sidebar({ onCreateProject }) {
@@ -205,6 +206,16 @@ function Sidebar({ onCreateProject }) {
                 >
                     <Lightbulb size={16} />
                     <span>Inspiration</span>
+                </button>
+                <button
+                    className={`btn btn-ghost nav-item ${currentView === 'tasks' ? 'active' : ''}`}
+                    onClick={() => {
+                        selectProject(null);
+                        setCurrentView('tasks');
+                    }}
+                >
+                    <CheckSquare size={16} />
+                    <span>Tasks & Notes</span>
                 </button>
                 <button className="btn btn-ghost nav-item" onClick={logout}>
                     <LogOut size={16} />
