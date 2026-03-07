@@ -13,7 +13,7 @@ import {
 import Sidebar from './Sidebar';
 import './styles/Layout.css';
 
-function Layout({ children, onCreateProject }) {
+function Layout({ children, onCreateProject, onExportImport }) {
     const {
         projects,
         currentProject,
@@ -27,8 +27,7 @@ function Layout({ children, onCreateProject }) {
     return (
         <div className={`layout ${sidebarOpen ? 'sidebar-open' : 'sidebar-closed'}`}>
             {/* Sidebar */}
-            {/* Sidebar */}
-            <Sidebar onCreateProject={onCreateProject} />
+            <Sidebar onCreateProject={onCreateProject} onExportImport={onExportImport} />
 
             {/* Main Content */}
             <main className="main-content">

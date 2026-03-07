@@ -12,10 +12,11 @@ import {
     Trash2,
     LogOut,
     Lightbulb,
-    CheckSquare
+    CheckSquare,
+    HardDriveDownload
 } from 'lucide-react';
 
-function Sidebar({ onCreateProject }) {
+function Sidebar({ onCreateProject, onExportImport }) {
     const {
         projects,
         folders,
@@ -216,6 +217,13 @@ function Sidebar({ onCreateProject }) {
                 >
                     <CheckSquare size={16} />
                     <span>Tasks & Notes</span>
+                </button>
+                <button
+                    className="btn btn-ghost nav-item"
+                    onClick={onExportImport}
+                >
+                    <HardDriveDownload size={16} />
+                    <span>Export / Import</span>
                 </button>
                 <button className="btn btn-ghost nav-item" onClick={logout}>
                     <LogOut size={16} />

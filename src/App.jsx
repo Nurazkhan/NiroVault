@@ -7,11 +7,13 @@ import CreateProjectModal from './components/CreateProjectModal';
 import InspirationBoard from './components/InspirationBoard';
 import GlobalTasksPage from './components/GlobalTasksPage';
 import AuthGuard from './components/AuthGuard';
+import ExportImportModal from './components/ExportImportModal';
 import './App.css';
 
 function App() {
     const { currentProject, currentView, setCurrentView, initAuth } = useStore();
     const [showCreateModal, setShowCreateModal] = useState(false);
+    const [showExportImportModal, setShowExportImportModal] = useState(false);
 
     useEffect(() => {
         const unsubscribe = initAuth();
@@ -38,11 +40,18 @@ function App() {
 
     return (
         <AuthGuard>
-            <Layout onCreateProject={handleCreateProject}>
+            <Layout
+                onCreateProject={handleCreateProject}
+                onExportImport={() => setShowExportImportModal(true)}
+            >
                 {renderContent()}
 
                 {showCreateModal && (
                     <CreateProjectModal onClose={() => setShowCreateModal(false)} />
+                )}
+
+                {showExportImportModal && (
+                    <ExportImportModal onClose={() => setShowExportImportModal(false)} />
                 )}
             </Layout>
         </AuthGuard>
