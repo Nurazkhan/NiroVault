@@ -25,7 +25,8 @@ import {
     CircuitBoard,
     CheckSquare,
     AlertTriangle,
-    Plus
+    Plus,
+    Tag
 } from 'lucide-react';
 import './styles/ProjectDetail.css';
 
