@@ -1,0 +1,988 @@
+{
+  "_exportVersion": "1.0",
+  "_exportDate": "2026-03-16T06:22:43.244Z",
+  "_exportedBy": "nurazkhan2008@gmail.com",
+  "folders": [
+    {
+      "_id": "nKtNjLByPl3JirUNVjYb",
+      "name": "Electronics",
+      "createdAt": "2026-02-14T10:55:00.122Z"
+    },
+    {
+      "_id": "Ns2VBAxTdRk4AbSY5BxH",
+      "createdAt": "2026-02-14T10:56:29.443Z",
+      "name": "IT - Software"
+    },
+    {
+      "_id": "nfaDA8fAV7BU9s3bka7W",
+      "name": "Realistic Money Ideas",
+      "createdAt": "2026-02-19T12:02:28.556Z"
+    }
+  ],
+  "projects": [
+    {
+      "_id": "aSTUc2fnwKwukCJceDbI",
+      "name": "Kazakhstan NEWS AI channel n8n",
+      "description": "",
+      "thumbnailUrl": "https://firebasestorage.googleapis.com/v0/b/nurazkhan-50303.firebasestorage.app/o/users%2F3cfKhBPorfa0RkKSjAA2pWMjdP13%2Fthumbnails%2FaSTUc2fnwKwukCJceDbI%2Fthumbnail-1773079672566.png?alt=media&token=3edbb2d2-7ffe-4b84-9589-0e7ea3e216e3",
+      "folderId": "Ns2VBAxTdRk4AbSY5BxH",
+      "tags": [
+        "Media"
+      ],
+      "currentVersionId": "gs6kylcaq2ZTecI61xIf",
+      "createdAt": "2026-03-09T18:08:01.761Z",
+      "updatedAt": "2026-03-09T18:08:17.426Z",
+      "versions": [
+        {
+          "_id": "gs6kylcaq2ZTecI61xIf",
+          "name": "v1.0",
+          "description": "Initial version",
+          "parentVersionId": null,
+          "todos": [],
+          "errors": [],
+          "createdAt": "2026-03-09T18:08:01.761Z",
+          "resources": [
+            {
+              "_id": "QyrYa4aoReG7ywSOMKiK",
+              "name": "Note",
+              "type": "note",
+              "url": null,
+              "metadata": {
+                "content": "This workflow is interesting and seems possible.\nthough. I don't have full understanding of actual n8n he is using.\n---\nwhat I got:\nIdea: at each day certain time you can search for news with AI. thats your videos AI idea.\nMaterial: Actually n8n can be setted up to search YT for good Short clips or videos for some moments.\nVoice and script: that not hard part AI can be used to make full videos.\nthen just connect material with AI, and publish at certain time.\nso you have AI news summarizer.\nisn't that great?"
+              },
+              "createdAt": "2026-03-09T18:18:44.387Z"
+            },
+            {
+              "_id": "VNQwHaRDjbzT8t7oswYp",
+              "name": "Brand design",
+              "type": "link",
+              "url": "https://chatgpt.com/c/69b58c21-dee0-8391-aed0-db6ba9277326",
+              "metadata": {
+                "description": "",
+                "platform": "chatgpt"
+              },
+              "createdAt": "2026-03-14T17:25:31.528Z"
+            },
+            {
+              "_id": "ZVD99i0AeHPrQ1c6Ek5c",
+              "name": "Initial Founder",
+              "type": "link",
+              "url": "https://www.youtube.com/watch?v=QlpKYUDX8wA",
+              "metadata": {
+                "platform": "other",
+                "description": ""
+              },
+              "createdAt": "2026-03-09T18:19:04.653Z"
+            },
+            {
+              "_id": "j5VK39H9IwxLpqbmOcL9",
+              "name": "Brand design",
+              "type": "link",
+              "url": "https://chatgpt.com/c/69b58c21-dee0-8391-aed0-db6ba9277326",
+              "metadata": {
+                "description": "",
+                "platform": "chatgpt"
+              },
+              "createdAt": "2026-03-14T17:25:32.650Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "_id": "Oo5y3rdsA3mOQpBFToNT",
+      "name": "insta and Whatsapp AI integration",
+      "description": "More realistic way, use trained AI models for Whatsapp business or Insta DM, so you wont spend money on SMM.",
+      "thumbnailUrl": "https://firebasestorage.googleapis.com/v0/b/nurazkhan-50303.firebasestorage.app/o/users%2F3cfKhBPorfa0RkKSjAA2pWMjdP13%2Fthumbnails%2FOo5y3rdsA3mOQpBFToNT%2Fthumbnail-1771502508832.png?alt=media&token=02905ebe-cbda-4e00-9769-6e2bf3e74cb5",
+      "folderId": "nfaDA8fAV7BU9s3bka7W",
+      "tags": [
+        "Software"
+      ],
+      "currentVersionId": "swMYj40hPoDcyY1lCTI0",
+      "createdAt": "2026-02-19T12:01:56.564Z",
+      "updatedAt": "2026-02-19T12:02:47.416Z",
+      "versions": [
+        {
+          "_id": "swMYj40hPoDcyY1lCTI0",
+          "name": "v1.0",
+          "description": "Initial version",
+          "parentVersionId": null,
+          "todos": [],
+          "errors": [],
+          "createdAt": "2026-02-19T12:01:56.564Z",
+          "resources": []
+        }
+      ]
+    },
+    {
+      "_id": "hDEW2nYQm2mRPCjT0n5o",
+      "name": "Ultrasound GUn",
+      "description": "Change direction of sound, illuse wisper and wonder.",
+      "thumbnailUrl": "https://firebasestorage.googleapis.com/v0/b/nurazkhan-50303.firebasestorage.app/o/users%2F3cfKhBPorfa0RkKSjAA2pWMjdP13%2Fthumbnails%2FhDEW2nYQm2mRPCjT0n5o%2Fthumbnail-1771081784326.png?alt=media&token=ef522e47-b500-4bad-8ca9-d74289723270",
+      "folderId": null,
+      "tags": [],
+      "currentVersionId": "KWWTYuKnuicD2vhhO07m",
+      "createdAt": "2026-02-14T15:37:25.849Z",
+      "updatedAt": "2026-02-14T15:37:25.849Z",
+      "versions": [
+        {
+          "_id": "KWWTYuKnuicD2vhhO07m",
+          "name": "v1.0",
+          "description": "Initial version",
+          "parentVersionId": null,
+          "todos": [],
+          "errors": [],
+          "createdAt": "2026-02-14T15:37:25.849Z",
+          "resources": [
+            {
+              "_id": "J9fu6yaCpjYb9w9ccYGe",
+              "name": "Guy who made it loud and under 20$",
+              "type": "link",
+              "url": "https://www.youtube.com/watch?v=9hD5FPVSsV0",
+              "metadata": {
+                "platform": "other",
+                "description": "Might be with highest potential to do, but uses stm and some op amps."
+              },
+              "createdAt": "2026-02-15T11:45:07.277Z"
+            },
+            {
+              "_id": "Vicv6nuWOui3BscCzYHN",
+              "name": "Guy who made bluetooth amplifier and a lot of transducers",
+              "type": "link",
+              "url": "https://www.youtube.com/watch?v=Z8Ur3uuD610&t=1s",
+              "metadata": {
+                "description": "This option is expensive to do. But it has some theoretical knowledge",
+                "platform": "other"
+              },
+              "createdAt": "2026-02-18T03:37:58.634Z"
+            },
+            {
+              "_id": "iaIqEL63RwBqaYSrDq0b",
+              "name": "Lower but cheaper How i suppose, but uses bluetooth",
+              "type": "link",
+              "url": "https://www.youtube.com/watch?v=TQOabMOMGoE&list=PL-pYC5X3BcYzgZh0tVXcqWY1CI2jAuyMU",
+              "metadata": {
+                "platform": "other",
+                "description": ""
+              },
+              "createdAt": "2026-02-15T11:45:40.882Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "_id": "WxMsMxT7tLENAV0uSC5H",
+      "name": "Nomad AI",
+      "description": "goal to learn publishing Android apps to play market.\nadd ad system. Use of Computer vision.\nexercise tracking\n\nhttps://www.youtube.com/watch?v=5MFir_jcEwI",
+      "thumbnailUrl": null,
+      "folderId": "Ns2VBAxTdRk4AbSY5BxH",
+      "tags": [],
+      "currentVersionId": "qCVbO7rB516s2fZYKGSq",
+      "createdAt": "2026-02-01T13:04:22.816Z",
+      "updatedAt": "2026-02-14T10:57:03.925Z",
+      "versions": [
+        {
+          "_id": "qCVbO7rB516s2fZYKGSq",
+          "name": "v1.0",
+          "description": "Initial version",
+          "parentVersionId": null,
+          "todos": [],
+          "errors": [
+            {
+              "title": "I couldnt add login through google",
+              "id": 1770472592857,
+              "description": "the error kept happening, so for now I am delaying this function, for use of common email and password thing. \nthe final instructions in chat was to install some Android studio SDK first, then to build and get SHA1 fingerprint.\n\nhe \"License Not Accepted\" error happens because Android Studio needs you to manually agree to the terms for the NDK (Native Development Kit).\n\nStep 1: Accept the Licenses\nRun this command in your terminal to accept all pending licenses. You will need to press y and Enter for each one:\n\npowershell\nC:\\Users\\nuraz\\Programs\\CodingSDKlibraryetcENV\\AndroidSDK\\cmdline-tools\\latest\\bin\\sdkmanager.bat --licenses\n(If that path is wrong, you can also do this in Android Studio: Settings -> Languages & Frameworks -> Android SDK -> SDK Tools -> Check \"NDK (Side by side)\" and \"Android SDK Command-line Tools\" -> Apply.)\n\nStep 2: The Fast Way (Skip Gradle)\nSince Gradle is trying to build the whole app just to show you a key, it's hitting those errors. You can bypass it entirely by using the keytool that comes with the Java you just installed.\n\nIMPORTANT: Restart your terminal window first (so it detects the new Java installation). Then run:\n\npowershell\nkeytool -list -v -keystore \"$env:USERPROFILE\\.android\\debug.keystore\" -alias androiddebugkey -storepass android -keypass android\nStep 3: If keytool is still \"Not Recognized\"\nIf it still says it can't find keytool, try running it using the full path to the Java you just installed:\n\npowershell\n& \"C:\\Program Files\\Microsoft\\jdk-17.0.14.7-hotspot\\bin\\keytool.exe\" -list -v -keystore \"$env:USERPROFILE\\.android\\debug.keystore\" -alias androiddebugkey -storepass android -keypass android\n(Note: Your version folder jdk-17... might be slightly different; you can check C:\\Program Files\\Microsoft to see the exact folder name.)\n\nOnce you get the SHA-1 from the output, copy it and add it to Firebase!",
+              "createdAt": {
+                "type": "firestore/timestamp/1.0",
+                "seconds": 1770472592,
+                "nanoseconds": 857000000
+              },
+              "resolved": false
+            }
+          ],
+          "createdAt": "2026-02-01T13:04:22.816Z",
+          "resources": [
+            {
+              "_id": "jiYWx0UySysFGDT1B6VL",
+              "name": "Intro session",
+              "type": "link",
+              "url": "https://chatgpt.com/c/69809e65-6c0c-8394-a23d-187aae8675f0",
+              "metadata": {
+                "platform": "chatgpt",
+                "description": "Basic design and main idea"
+              },
+              "createdAt": "2026-02-02T18:06:57.940Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "_id": "MPoe3DqYkBfh7O9MB6oF",
+      "name": "Suret AI",
+      "description": "быстрый генератор изображений для бизнеса и личного бренда",
+      "thumbnailUrl": "https://firebasestorage.googleapis.com/v0/b/nurazkhan-50303.firebasestorage.app/o/users%2F3cfKhBPorfa0RkKSjAA2pWMjdP13%2Fthumbnails%2FMPoe3DqYkBfh7O9MB6oF%2FScreenshot%202026-02-02%20231253.png?alt=media&token=8b92992f-03ab-4674-9b53-303cf26fbee9",
+      "folderId": "Ns2VBAxTdRk4AbSY5BxH",
+      "tags": [],
+      "currentVersionId": "ADeiNezwgWbVTj0qHKqA",
+      "createdAt": "2026-02-02T18:13:32.904Z",
+      "updatedAt": "2026-02-14T10:56:57.825Z",
+      "versions": [
+        {
+          "_id": "ADeiNezwgWbVTj0qHKqA",
+          "name": "v1.0",
+          "description": "Initial version",
+          "parentVersionId": null,
+          "todos": [
+            {
+              "text": "Улучшить систему добавления шаблонов, ИИ для перевода и просмотр на трех языках. Для превью кнопка generate",
+              "id": 1770056076851,
+              "createdAt": {
+                "type": "firestore/timestamp/1.0",
+                "seconds": 1770056076,
+                "nanoseconds": 851000000
+              },
+              "completed": true
+            },
+            {
+              "completed": true,
+              "text": "Добавить удаление или скрытие созданных изображений",
+              "id": 1770056103545,
+              "createdAt": {
+                "type": "firestore/timestamp/1.0",
+                "seconds": 1770056103,
+                "nanoseconds": 545000000
+              }
+            },
+            {
+              "text": "админ панель чтобы просматривать все изображения",
+              "id": 1770056116951,
+              "createdAt": {
+                "type": "firestore/timestamp/1.0",
+                "seconds": 1770056116,
+                "nanoseconds": 951000000
+              },
+              "completed": true
+            },
+            {
+              "text": "Добавить больше моделей для генераций",
+              "id": 1770098278882,
+              "createdAt": {
+                "type": "firestore/timestamp/1.0",
+                "seconds": 1770098278,
+                "nanoseconds": 882000000
+              },
+              "completed": true
+            },
+            {
+              "id": 1770098835598,
+              "text": "Display connection of user input and hidden prompt label,",
+              "createdAt": {
+                "type": "firestore/timestamp/1.0",
+                "seconds": 1770098835,
+                "nanoseconds": 598000000
+              },
+              "completed": true
+            },
+            {
+              "completed": true,
+              "text": "скрыть шаблон промпт от юзеров + уменьшить бар для генераций",
+              "id": 1770117774159,
+              "createdAt": {
+                "type": "firestore/timestamp/1.0",
+                "seconds": 1770117774,
+                "nanoseconds": 159000000
+              }
+            },
+            {
+              "completed": true,
+              "id": 1773077084327,
+              "createdAt": {
+                "type": "firestore/timestamp/1.0",
+                "seconds": 1773077084,
+                "nanoseconds": 327000000
+              },
+              "text": "добавить nowpayment"
+            },
+            {
+              "text": "пофиксить upload bar на телефоне.",
+              "createdAt": {
+                "type": "firestore/timestamp/1.0",
+                "seconds": 1773079094,
+                "nanoseconds": 955000000
+              },
+              "id": 1773079094955,
+              "completed": false
+            },
+            {
+              "id": 1773079128587,
+              "text": "добавить control над image (resolution, ratio)",
+              "createdAt": {
+                "type": "firestore/timestamp/1.0",
+                "seconds": 1773079128,
+                "nanoseconds": 587000000
+              },
+              "completed": false
+            },
+            {
+              "id": 1773154638175,
+              "text": "исправить sitemap",
+              "createdAt": {
+                "type": "firestore/timestamp/1.0",
+                "seconds": 1773154638,
+                "nanoseconds": 175000000
+              },
+              "completed": false
+            }
+          ],
+          "errors": [
+            {
+              "title": "MODELS",
+              "id": 1773080679070,
+              "createdAt": {
+                "type": "firestore/timestamp/1.0",
+                "seconds": 1773080679,
+                "nanoseconds": 70000000
+              },
+              "description": "1. Pro models card is old, no direction to NOW PAYMENT.\n2. In gallery and community page cards and pretty everywhere Distinguish what model was used for generation of image.\n3. When creating templates in admin page also ask which model was used, and hide model choosing icon when using template.",
+              "resolved": false
+            },
+            {
+              "resolved": false,
+              "createdAt": {
+                "type": "firestore/timestamp/1.0",
+                "seconds": 1773080719,
+                "nanoseconds": 81000000
+              },
+              "description": "Its just floating BAD UX UI",
+              "title": "Upload bar floating",
+              "id": 1773080719081
+            }
+          ],
+          "createdAt": "2026-02-02T18:13:32.904Z",
+          "resources": [
+            {
+              "_id": "P2QUC9ksmWOMopsSqcM3",
+              "name": "Note",
+              "type": "note",
+              "url": null,
+              "metadata": {
+                "content": "Payment method.\nwas considering Polar, I think it gonna work just use your parents account. \nhttps://app.ezclaw.dev/auth the guy who made this 17 yo so it is possible."
+              },
+              "createdAt": "2026-02-14T16:14:22.720Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "_id": "zHJdjOvPabNMF4Bb1qfl",
+      "name": "Niro Vault",
+      "description": "Online Project Management system with help of AI",
+      "thumbnailUrl": null,
+      "folderId": "Ns2VBAxTdRk4AbSY5BxH",
+      "tags": [],
+      "currentVersionId": "UXvmQ9Tef6lOJWcSZhMZ",
+      "createdAt": "2026-02-02T18:07:36.946Z",
+      "updatedAt": "2026-02-14T10:56:44.754Z",
+      "versions": [
+        {
+          "_id": "UXvmQ9Tef6lOJWcSZhMZ",
+          "name": "v1.0",
+          "description": "Initial version",
+          "parentVersionId": null,
+          "todos": [
+            {
+              "createdAt": {
+                "type": "firestore/timestamp/1.0",
+                "seconds": 1770055671,
+                "nanoseconds": 161000000
+              },
+              "text": "Add new entries section and search through entries",
+              "id": 1770055671161,
+              "completed": true
+            },
+            {
+              "completed": true,
+              "text": "Улучшить интерфейс, сделать лого кликабельным. сделать кнопку добавить проект легодоступным",
+              "id": 1770056202400,
+              "createdAt": {
+                "type": "firestore/timestamp/1.0",
+                "seconds": 1770056202,
+                "nanoseconds": 400000000
+              }
+            },
+            {
+              "completed": true,
+              "createdAt": {
+                "type": "firestore/timestamp/1.0",
+                "seconds": 1770117812,
+                "nanoseconds": 833000000
+              },
+              "text": "добавить время рядом с заданием когда было выполнено и поставлено.",
+              "id": 1770117812833
+            },
+            {
+              "createdAt": {
+                "type": "firestore/timestamp/1.0",
+                "seconds": 1770117830,
+                "nanoseconds": 102000000
+              },
+              "id": 1770117830102,
+              "text": "оптимизировать выполнение задачи",
+              "completed": true
+            },
+            {
+              "id": 1770128601885,
+              "createdAt": {
+                "type": "firestore/timestamp/1.0",
+                "seconds": 1770128601,
+                "nanoseconds": 885000000
+              },
+              "text": "projects inspiration resources",
+              "completed": true
+            }
+          ],
+          "errors": [],
+          "createdAt": "2026-02-02T18:07:36.946Z",
+          "resources": [
+            {
+              "_id": "MHdLpGCBrt3GukTRbkHf",
+              "name": "Note",
+              "type": "note",
+              "url": null,
+              "metadata": {
+                "content": "https://www.youtube.com/results?search_query=xdotool%2C+wmctrl%2C+%26+xwininfo"
+              },
+              "createdAt": "2026-02-14T10:52:18.489Z"
+            },
+            {
+              "_id": "eiG1Y9QynXfjtpSsI77Y",
+              "name": "Start",
+              "type": "link",
+              "url": "https://chatgpt.com/c/697f1163-87e0-8386-a144-3ca464e786fc",
+              "metadata": {
+                "description": "",
+                "platform": "chatgpt"
+              },
+              "createdAt": "2026-02-08T16:40:49.192Z"
+            },
+            {
+              "_id": "hEjeBEfO2v2BWDnRA6wI",
+              "name": "Note",
+              "type": "note",
+              "url": null,
+              "metadata": {
+                "content": "hi"
+              },
+              "createdAt": "2026-02-09T18:41:26.771Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "_id": "3Gx5wIrpauqX66RjIHQV",
+      "name": "Extension Kwork",
+      "description": "Ai Auto Generate the отклик",
+      "thumbnailUrl": null,
+      "folderId": "Ns2VBAxTdRk4AbSY5BxH",
+      "tags": [],
+      "currentVersionId": "mm2QcHYJgZrFmSN8cqn3",
+      "createdAt": "2026-02-03T11:25:55.397Z",
+      "updatedAt": "2026-02-14T10:56:36.924Z",
+      "versions": [
+        {
+          "_id": "mm2QcHYJgZrFmSN8cqn3",
+          "name": "v1.0",
+          "description": "Initial version",
+          "parentVersionId": null,
+          "todos": [],
+          "errors": [],
+          "createdAt": "2026-02-03T11:25:55.397Z",
+          "resources": []
+        }
+      ]
+    },
+    {
+      "_id": "XJbUxkadNxNOf00VaDlu",
+      "name": "CYD esp32 music player",
+      "description": "it can hold charge connect to BLE devices and play music.",
+      "thumbnailUrl": null,
+      "folderId": "nKtNjLByPl3JirUNVjYb",
+      "tags": [],
+      "currentVersionId": "rzQl23dBHKulXb8fDGqP",
+      "createdAt": "2026-02-08T11:52:46.091Z",
+      "updatedAt": "2026-02-14T10:56:09.098Z",
+      "versions": [
+        {
+          "_id": "rzQl23dBHKulXb8fDGqP",
+          "name": "V1.1",
+          "description": "May be we will add screen?",
+          "parentVersionId": "hpHLboHibRnKl5DkuGbL",
+          "todos": [],
+          "errors": [],
+          "createdAt": "2026-02-08T16:46:38.291Z",
+          "resources": [
+            {
+              "_id": "pBWbwJjk7dSiRoq9NEAZ",
+              "name": "sketch_feb8a.ino.merged.bin",
+              "type": "bin",
+              "url": "https://firebasestorage.googleapis.com/v0/b/nurazkhan-50303.firebasestorage.app/o/users%2F3cfKhBPorfa0RkKSjAA2pWMjdP13%2Fprojects%2FXJbUxkadNxNOf00VaDlu%2Fversions%2FrzQl23dBHKulXb8fDGqP%2F1770574680768_sketch_feb8a.ino.merged.bin?alt=media&token=86e6f67d-68c4-43c9-9c2c-8afd1ad0c545",
+              "metadata": {
+                "size": 4194304,
+                "lastModified": 1770569008950,
+                "mimeType": "application/octet-stream"
+              },
+              "createdAt": "2026-02-08T18:18:13.594Z"
+            }
+          ]
+        },
+        {
+          "_id": "hpHLboHibRnKl5DkuGbL",
+          "name": "v1.0",
+          "description": "Initial version",
+          "parentVersionId": null,
+          "todos": [],
+          "errors": [],
+          "createdAt": "2026-02-08T11:52:46.091Z",
+          "resources": [
+            {
+              "_id": "8BKcWRYNFVJkJOPgvHui",
+              "name": "Note",
+              "type": "note",
+              "url": null,
+              "metadata": {
+                "content": "all music should be stored in music/  folder and .raw format.\nto convert music to Raw format its needed to use audacity \nConvert to RAW (header-less) in Audacity\n\nOpen your audio in Audacity\n\nSet the project/sample rate (bottom-left) to what you need (for A2DP/most music use 44100 Hz)\n\nGo to File → Export → Export Audio…\n\nIn Format, choose Other uncompressed files\n\nClick Configure… / Options…\n\nSet:\n\nHeader: RAW (header-less)\n\nEncoding: Signed 16-bit PCM (typical for ESP32 audio streaming)\n\nExport — Audacity will usually save it with a .raw extension.\n\nTip: You can’t “play” a .raw directly like a .wav because it has no header. To check it inside Audacity later: File → Import → Raw Data…\n\nIf you want a quick command-line alternative (optional)\n\nIf you already have WAV and want raw PCM (16-bit little-endian, stereo, 44.1kHz):\n\nffmpeg -i input.wav -f s16le -acodec pcm_s16le -ac 2 -ar 44100 output.raw\n\n\nIf you tell me your file type (MP3/WAV) and the exact format you want (mono/stereo, sample rate), I’ll tell you the exact Audacity settings for it."
+              },
+              "createdAt": "2026-02-08T12:54:28.050Z"
+            },
+            {
+              "_id": "CwP83dQT7xm0mmJRjDgM",
+              "name": "sketch_feb8a.ino",
+              "type": "ino",
+              "url": "https://firebasestorage.googleapis.com/v0/b/nurazkhan-50303.firebasestorage.app/o/users%2F3cfKhBPorfa0RkKSjAA2pWMjdP13%2Fprojects%2FXJbUxkadNxNOf00VaDlu%2Fversions%2FhpHLboHibRnKl5DkuGbL%2F1770569053780_sketch_feb8a.ino?alt=media&token=ae981258-1d9f-4101-a96c-81250673a624",
+              "metadata": {
+                "lastModified": 1770554538018,
+                "mimeType": "",
+                "size": 4968
+              },
+              "createdAt": "2026-02-08T16:44:17.912Z"
+            },
+            {
+              "_id": "N0BhX7SfuT5zvFCv96gu",
+              "name": "everything",
+              "type": "link",
+              "url": "https://chatgpt.com/c/698879ae-90d0-8397-8623-e78136c68dcb",
+              "metadata": {
+                "platform": "chatgpt",
+                "description": ""
+              },
+              "createdAt": "2026-02-08T12:56:24.695Z"
+            },
+            {
+              "_id": "XGCz0u9ZIoIWCYrWCuEg",
+              "name": "sketch_feb8a.ino.merged.bin",
+              "type": "bin",
+              "url": "https://firebasestorage.googleapis.com/v0/b/nurazkhan-50303.firebasestorage.app/o/users%2F3cfKhBPorfa0RkKSjAA2pWMjdP13%2Fprojects%2FXJbUxkadNxNOf00VaDlu%2Fversions%2FhpHLboHibRnKl5DkuGbL%2F1770569218388_sketch_feb8a.ino.merged.bin?alt=media&token=26e2d1ea-308d-4299-9b9f-fc9bfeeaffbf",
+              "metadata": {
+                "size": 4194304,
+                "lastModified": 1770569008950,
+                "mimeType": "application/octet-stream"
+              },
+              "createdAt": "2026-02-08T16:47:14.684Z"
+            },
+            {
+              "_id": "ZGBusBepFHsdX9b6TcAy",
+              "name": "sketch_feb8a.ino.merged.bin",
+              "type": "bin",
+              "url": "https://firebasestorage.googleapis.com/v0/b/nurazkhan-50303.firebasestorage.app/o/users%2F3cfKhBPorfa0RkKSjAA2pWMjdP13%2Fprojects%2FXJbUxkadNxNOf00VaDlu%2Fversions%2FhpHLboHibRnKl5DkuGbL%2F1770569022446_sketch_feb8a.ino.merged.bin?alt=media&token=14bccb47-6abb-4e1e-8e8d-4744273caaa4",
+              "metadata": {
+                "size": 4194304,
+                "mimeType": "application/octet-stream",
+                "lastModified": 1770569008950
+              },
+              "createdAt": "2026-02-08T16:44:01.764Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "_id": "Jm2R6JJhh4c1CGGY09hv",
+      "name": "CNC plotter arduino",
+      "description": "2 stepper motors and 1 servo to make my own mini printer?",
+      "thumbnailUrl": "https://firebasestorage.googleapis.com/v0/b/nurazkhan-50303.firebasestorage.app/o/users%2F3cfKhBPorfa0RkKSjAA2pWMjdP13%2Fthumbnails%2FJm2R6JJhh4c1CGGY09hv%2Fthumbnail-1770473842365.png?alt=media&token=2990b1f3-abb7-4da5-b264-d8b049dde473",
+      "folderId": "nKtNjLByPl3JirUNVjYb",
+      "tags": [],
+      "currentVersionId": "8Tenvhx3f8gENPPxqv8I",
+      "createdAt": "2026-02-07T14:17:30.111Z",
+      "updatedAt": "2026-02-14T10:56:00.722Z",
+      "versions": [
+        {
+          "_id": "8Tenvhx3f8gENPPxqv8I",
+          "name": "v1.0",
+          "description": "Initial version",
+          "parentVersionId": null,
+          "todos": [],
+          "errors": [],
+          "createdAt": "2026-02-07T14:17:30.111Z",
+          "resources": [
+            {
+              "_id": "CZyYdJ69Tz7bQ3XrPl1k",
+              "name": "this one should work, its seems accurate",
+              "type": "link",
+              "url": "https://www.youtube.com/watch?v=WtUIBxfddjw",
+              "metadata": {
+                "description": "",
+                "platform": "other"
+              },
+              "createdAt": "2026-02-18T04:15:45.235Z"
+            },
+            {
+              "_id": "HyCsPXpJimFUuolBTiqz",
+              "name": "Another needed program",
+              "type": "link",
+              "url": "https://winder.github.io/ugs_website/download/",
+              "metadata": {
+                "platform": "other",
+                "description": ""
+              },
+              "createdAt": "2026-03-14T16:19:32.361Z"
+            },
+            {
+              "_id": "dwzCClDduoyvyv4Z614e",
+              "name": "Note",
+              "type": "note",
+              "url": null,
+              "metadata": {
+                "content": "I will make youtube video in style of alex gyver"
+              },
+              "createdAt": "2026-03-14T16:18:49.185Z"
+            },
+            {
+              "_id": "hNcYXzOgTX76wvZhsJrX",
+              "name": "firmware_2026-03-15.settings",
+              "type": "bin",
+              "url": "https://firebasestorage.googleapis.com/v0/b/nurazkhan-50303.firebasestorage.app/o/users%2F3cfKhBPorfa0RkKSjAA2pWMjdP13%2Fprojects%2FJm2R6JJhh4c1CGGY09hv%2Fversions%2F8Tenvhx3f8gENPPxqv8I%2F1773576252127_firmware_2026-03-15.settings?alt=media&token=4adfce23-bd5a-4183-a851-e4e0512387df",
+              "metadata": {
+                "lastModified": 1773575429018,
+                "mimeType": "",
+                "size": 8007
+              },
+              "createdAt": "2026-03-15T12:04:22.900Z"
+            },
+            {
+              "_id": "lOEHWrS8LvooKTxHVtPj",
+              "name": "Note",
+              "type": "note",
+              "url": null,
+              "metadata": {
+                "content": "https://www.youtube.com/watch?v=hJhmfK4K_ZE"
+              },
+              "createdAt": "2026-02-07T14:17:40.765Z"
+            },
+            {
+              "_id": "pXY4eIIfTlC2tbeLvBIL",
+              "name": "3d FILES",
+              "type": "link",
+              "url": "https://www.thingiverse.com/thing:4607077/files",
+              "metadata": {
+                "description": "without bearing",
+                "platform": "other"
+              },
+              "createdAt": "2026-03-14T15:32:02.766Z"
+            },
+            {
+              "_id": "qNC4qyQmRSYJWnT6vqne",
+              "name": "materials excel",
+              "type": "link",
+              "url": "https://docs.google.com/spreadsheets/d/1kLTyPyunDEVlNTk0P87eMHMbBnVfI8ag84FbNM2FfSI/edit?gid=0#gid=0",
+              "metadata": {
+                "description": "",
+                "platform": "other"
+              },
+              "createdAt": "2026-02-18T12:26:21.550Z"
+            },
+            {
+              "_id": "rd1GIW67o9i6HX0hCuNH",
+              "name": "I think needed program",
+              "type": "link",
+              "url": "https://github.com/TGit-Tech/GRBL-28byj-48",
+              "metadata": {
+                "platform": "other",
+                "description": ""
+              },
+              "createdAt": "2026-03-14T16:19:21.296Z"
+            },
+            {
+              "_id": "sS64ZihGorrb38feH8IW",
+              "name": "3d files",
+              "type": "link",
+              "url": "https://www.thingiverse.com/thing:4579436",
+              "metadata": {
+                "platform": "other",
+                "description": "with bearing"
+              },
+              "createdAt": "2026-03-14T15:32:19.618Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "_id": "Z3NxKXsI9snRzacQK88N",
+      "name": "PET to Filament",
+      "description": "Bottles to filament",
+      "thumbnailUrl": "https://firebasestorage.googleapis.com/v0/b/nurazkhan-50303.firebasestorage.app/o/users%2F3cfKhBPorfa0RkKSjAA2pWMjdP13%2Fthumbnails%2FZ3NxKXsI9snRzacQK88N%2Fhq720.jpg?alt=media&token=041627e1-bec8-4566-abb7-33083ffca842",
+      "folderId": "nKtNjLByPl3JirUNVjYb",
+      "tags": [],
+      "currentVersionId": "Eatp6FQIPHqAGhhUnyqR",
+      "createdAt": "2026-02-02T18:18:25.714Z",
+      "updatedAt": "2026-02-14T10:55:50.206Z",
+      "versions": [
+        {
+          "_id": "Eatp6FQIPHqAGhhUnyqR",
+          "name": "v1.0",
+          "description": "Initial version",
+          "parentVersionId": null,
+          "todos": [
+            {
+              "completed": false,
+              "id": 1771385941020,
+              "createdAt": {
+                "type": "firestore/timestamp/1.0",
+                "seconds": 1771385941,
+                "nanoseconds": 20000000
+              },
+              "text": "Создать список нужных предметов и цены и ссылки"
+            },
+            {
+              "completed": false,
+              "text": "Купить материалы",
+              "createdAt": {
+                "type": "firestore/timestamp/1.0",
+                "seconds": 1771385947,
+                "nanoseconds": 203000000
+              },
+              "id": 1771385947203
+            }
+          ],
+          "errors": [],
+          "createdAt": "2026-02-02T18:18:25.714Z",
+          "resources": [
+            {
+              "_id": "CKmUV4M2omEvmpUvt1bE",
+              "name": "Gerber_v1.1_2023-01-02.zip",
+              "type": "schematic",
+              "url": "https://firebasestorage.googleapis.com/v0/b/nurazkhan-50303.firebasestorage.app/o/users%2F3cfKhBPorfa0RkKSjAA2pWMjdP13%2Fprojects%2FZ3NxKXsI9snRzacQK88N%2Fversions%2FEatp6FQIPHqAGhhUnyqR%2F1770664073359_Gerber_v1.1_2023-01-02.zip?alt=media&token=719cc30a-b58d-4fbf-8d6e-317765bef2ed",
+              "metadata": {
+                "mimeType": "application/x-zip-compressed",
+                "lastModified": 1770663384550,
+                "size": 55886
+              },
+              "createdAt": "2026-02-09T19:08:00.660Z"
+            },
+            {
+              "_id": "COt42znI9pUMStlJm3pq",
+              "name": "Materials and better instruction",
+              "type": "link",
+              "url": "https://function3d.xyz/en/bom/",
+              "metadata": {
+                "description": "",
+                "platform": "other"
+              },
+              "createdAt": "2026-02-09T18:47:42.916Z"
+            },
+            {
+              "_id": "EN1UO3N4C9L05yfUlqKu",
+              "name": "Instruction and good info",
+              "type": "link",
+              "url": "https://www.printables.com/model/768657-petalot-pet-filament-machine",
+              "metadata": {
+                "description": "",
+                "platform": "other"
+              },
+              "createdAt": "2026-02-09T18:46:46.239Z"
+            },
+            {
+              "_id": "StRm7Cde4MCvNeGS7zTQ",
+              "name": "Amazing built",
+              "type": "link",
+              "url": "https://www.youtube.com/watch?v=f6_8Qdu9O-0",
+              "metadata": {
+                "platform": "other",
+                "description": "https://www.youtube.com/watch?v=f6_8Qdu9O-0"
+              },
+              "createdAt": "2026-02-02T18:35:25.485Z"
+            },
+            {
+              "_id": "XTrdyO6RyeZeDNWbXDPz",
+              "name": "Note",
+              "type": "note",
+              "url": null,
+              "metadata": {
+                "content": "I have to create table comparing all needed components and prices"
+              },
+              "createdAt": "2026-02-09T20:05:32.233Z"
+            },
+            {
+              "_id": "ZSo9LNM67hpe1gqpPPma",
+              "name": "All materials discussion",
+              "type": "link",
+              "url": "https://chatgpt.com/c/69953ebf-8dd4-8396-b05e-90de10022ddf",
+              "metadata": {
+                "platform": "chatgpt",
+                "description": ""
+              },
+              "createdAt": "2026-02-18T11:16:20.136Z"
+            },
+            {
+              "_id": "mYuvc94v88ZLQutY43mN",
+              "name": "COST and materials",
+              "type": "link",
+              "url": "https://docs.google.com/spreadsheets/d/1gOebnY7-vFyC6NbUuHPKX2rRwVoFN0WqaKpPgnKRfpY/edit?gid=0#gid=0",
+              "metadata": {
+                "description": "",
+                "platform": "other"
+              },
+              "createdAt": "2026-02-18T12:25:42.707Z"
+            },
+            {
+              "_id": "yZKrWO0X3J24qYai5OC6",
+              "name": "Note",
+              "type": "note",
+              "url": null,
+              "metadata": {
+                "content": "Что я понял за сегодня так это разница в цене. Буду заказывать с пиндуодуо и хочу собрать весь проект до 10к тг.\nпримеры блок питания 12в 5а 2630 -> 800тг + 560 = 1360тг разница в двое\nподшипники самые дешевые которые я мог найти вб 150тг 10 штук 1500тг -> 16 штук  300тг + 400тг -> в вдое опять 800тг экономия.\nза эти деньги уже здесь можно болты купить, надеюсь хотя бы это у нас дешевле, метал наверное тяжелый."
+              },
+              "createdAt": "2026-02-09T20:04:38.507Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "_id": "5efi8HmyAXW9qpFchTM7",
+      "name": "Launcher CYD esp32",
+      "description": "Bmorcelli/Launcher ESP32\nAllows to run BIN fiels from SD",
+      "thumbnailUrl": "https://firebasestorage.googleapis.com/v0/b/nurazkhan-50303.firebasestorage.app/o/users%2F3cfKhBPorfa0RkKSjAA2pWMjdP13%2Fthumbnails%2F5efi8HmyAXW9qpFchTM7%2Fmqdefault.jpg?alt=media&token=23001dd9-62f2-4ead-81dc-826d037c17cd",
+      "folderId": "nKtNjLByPl3JirUNVjYb",
+      "tags": [],
+      "currentVersionId": "I4m5aPr69f8sbmfXrliA",
+      "createdAt": "2026-02-01T12:31:47.546Z",
+      "updatedAt": "2026-02-14T10:55:29.554Z",
+      "versions": [
+        {
+          "_id": "I4m5aPr69f8sbmfXrliA",
+          "name": "v1.0",
+          "description": "Initial version",
+          "parentVersionId": null,
+          "todos": [],
+          "errors": [],
+          "createdAt": "2026-02-01T12:31:47.546Z",
+          "resources": [
+            {
+              "_id": "HUbPRz1ej3v5ZoHj9z8O",
+              "name": "mqdefault.jpg",
+              "type": "image",
+              "url": "https://firebasestorage.googleapis.com/v0/b/nurazkhan-50303.firebasestorage.app/o/users%2F3cfKhBPorfa0RkKSjAA2pWMjdP13%2Fprojects%2F5efi8HmyAXW9qpFchTM7%2Fversions%2FI4m5aPr69f8sbmfXrliA%2F1769949133767_mqdefault.jpg?alt=media&token=fc56bdf6-61eb-4853-9278-d03ebeb6553f",
+              "metadata": {
+                "lastModified": 1769949131876,
+                "mimeType": "image/jpeg",
+                "size": 22677
+              },
+              "createdAt": "2026-02-01T12:32:18.541Z"
+            },
+            {
+              "_id": "s36CdkkgR6pRULTkC6br",
+              "name": "Launcher-CYD-2432S028.bin",
+              "type": "bin",
+              "url": "https://firebasestorage.googleapis.com/v0/b/nurazkhan-50303.firebasestorage.app/o/users%2F3cfKhBPorfa0RkKSjAA2pWMjdP13%2Fprojects%2F5efi8HmyAXW9qpFchTM7%2Fversions%2FI4m5aPr69f8sbmfXrliA%2F1769949858846_Launcher-CYD-2432S028.bin?alt=media&token=d82e1a94-8716-4ad7-ae84-fa317b94268f",
+              "metadata": {
+                "mimeType": "application/octet-stream",
+                "lastModified": 1769941145458,
+                "size": 1473728
+              },
+              "createdAt": "2026-02-01T12:44:28.188Z"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "inspirations": [
+    {
+      "_id": "gOlrvfT8T4kYMLolKUo0",
+      "title": "Real Products DIY tech",
+      "description": "the website is cool, since this look like more than hobby but still less than professional, that is why this is best way to look for ideas.",
+      "tags": [],
+      "imageUrl": "https://firebasestorage.googleapis.com/v0/b/nurazkhan-50303.firebasestorage.app/o/users%2F3cfKhBPorfa0RkKSjAA2pWMjdP13%2Finspirations%2F1772103706938_inspiration-1772103671048.png?alt=media&token=ba567857-5cb5-4938-a3f4-3a9c7b7496a1",
+      "url": "https://www.kickstarter.com/design-tech?ref=global-footer",
+      "createdAt": "2026-02-26T11:01:56.695Z",
+      "updatedAt": "2026-02-26T11:01:56.695Z"
+    },
+    {
+      "_id": "eSZZqKjOfP17cLw6f4mF",
+      "title": "Hacking Pentesting",
+      "description": "VPS KALI AI Hacker\nкапец мощно там еще есть разные фишинги не заметные",
+      "tags": [],
+      "imageUrl": "https://firebasestorage.googleapis.com/v0/b/nurazkhan-50303.firebasestorage.app/o/users%2F3cfKhBPorfa0RkKSjAA2pWMjdP13%2Finspirations%2F1771749066201_inspiration-1771749060745.png?alt=media&token=75bf6164-23b8-4cb6-8cc5-2519d638abfe",
+      "url": "https://www.youtube.com/@zSecurity/videos",
+      "createdAt": "2026-02-22T08:31:13.559Z",
+      "updatedAt": "2026-02-22T08:31:13.559Z"
+    },
+    {
+      "_id": "GGddBbdlYjeGtKkZSiOl",
+      "title": "DIY shop",
+      "description": "All items sold here are DIY",
+      "tags": [],
+      "imageUrl": "https://firebasestorage.googleapis.com/v0/b/nurazkhan-50303.firebasestorage.app/o/users%2F3cfKhBPorfa0RkKSjAA2pWMjdP13%2Finspirations%2F1771691451824_inspiration-1771691446160.png?alt=media&token=490a8a90-0f34-43cf-9739-3be1f61b7c03",
+      "url": "https://www.etsy.com/",
+      "createdAt": "2026-02-21T16:30:59.437Z",
+      "updatedAt": "2026-02-21T16:30:59.437Z"
+    },
+    {
+      "_id": "pf8gzL37cYkl761NSLed",
+      "title": "Software and tools and news",
+      "description": "Search interesting software products",
+      "tags": [],
+      "imageUrl": "https://firebasestorage.googleapis.com/v0/b/nurazkhan-50303.firebasestorage.app/o/users%2F3cfKhBPorfa0RkKSjAA2pWMjdP13%2Finspirations%2F1771086489822_inspiration-1771086488763.png?alt=media&token=1b2b3bf5-c669-493a-8a25-4a6a30fb3534",
+      "url": "https://www.producthunt.com/products/draftlogo?embed=true&utm_source=badge-featured&utm_medium=badge&utm_campaign=badge-draftlogo",
+      "createdAt": "2026-02-14T16:28:14.283Z",
+      "updatedAt": "2026-02-14T16:28:14.283Z"
+    },
+    {
+      "_id": "WVw2Tkbsh6VQK4dGPzN9",
+      "title": "Software and Jobs",
+      "description": "The website shows weekly interesting SAAS projects. may watch them and be inspired.\n\nalso there is jobs section for startups also cool.",
+      "tags": [],
+      "imageUrl": "https://firebasestorage.googleapis.com/v0/b/nurazkhan-50303.firebasestorage.app/o/users%2F3cfKhBPorfa0RkKSjAA2pWMjdP13%2Finspirations%2F1771085744245_inspiration-1771085742654.png?alt=media&token=801aaf44-9792-4ca8-a818-dbec03919c44",
+      "url": "https://peerlist.io/launchpad/2026/week/7",
+      "createdAt": "2026-02-14T16:15:48.646Z",
+      "updatedAt": "2026-02-14T16:15:48.646Z"
+    }
+  ],
+  "globalTasks": [
+    {
+      "_id": "CPBWpSJQ8oIhpfOhjPoE",
+      "text": "Build App while running marathon https://www.youtube.com/shorts/1xKhSAqfRhQ",
+      "completed": false,
+      "createdAt": "2026-03-08T12:36:49.735Z"
+    },
+    {
+      "_id": "eJ0g0H6MPvTyyaD7Ohop",
+      "text": "May be post this content to youtube or Instagram interesting cyber Security and human psyschology https://lolz.live/threads/9693928/",
+      "completed": false,
+      "createdAt": "2026-02-26T17:30:47.599Z"
+    },
+    {
+      "_id": "5lBAWrM1I62W9U6M5oEz",
+      "text": "Get claude code for free https://lolz.live/threads/9701245/",
+      "completed": false,
+      "createdAt": "2026-02-26T17:22:19.748Z"
+    }
+  ],
+  "globalNotes": []
+}

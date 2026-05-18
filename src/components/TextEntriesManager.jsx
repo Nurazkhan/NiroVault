@@ -86,6 +86,33 @@ function TextEntriesManager({ resources }) {
         return content.toLowerCase().includes(searchQuery.toLowerCase());
     });
 
+    // Helper to render text with clickable links
+    const renderContentWithLinks = (text) => {
+        if (!text) return '';
+        
+        // Regex to match URLs (http, https)
+        const urlRegex = /(https?:\/\/[^\s]+)/g;
+        const parts = text.split(urlRegex);
+        
+        return parts.map((part, i) => {
+            if (part.match(urlRegex)) {
+                return (
+                    <a 
+                        key={i} 
+                        href={part} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="note-link"
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        {part}
+                    </a>
+                );
+            }
+            return part;
+        });
+    };
+
     // Subtle background tint per card index
     const getCardTint = (index) => {
         const tints = [
@@ -226,7 +253,7 @@ function TextEntriesManager({ resources }) {
                                         className="entry-content"
                                         onClick={() => startEditing(entry)}
                                     >
-                                        {entry.metadata?.content || entry.metadata?.text || ''}
+                                        {renderContentWithLinks(entry.metadata?.content || entry.metadata?.text || '')}
                                     </div>
                                 )}
                             </div>

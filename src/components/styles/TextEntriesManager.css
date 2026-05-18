@@ -237,3 +237,20 @@
         transform: translateY(0);
     }
 }
+
+.note-link {
+    color: var(--color-primary, #60a5fa);
+    background-color: var(--color-primary-transparent, rgba(96, 165, 250, 0.1));
+    text-decoration: none;
+    padding: 2px 6px;
+    border-radius: var(--radius-sm, 4px);
+    font-weight: 500;
+    transition: all 0.2s ease;
+    word-break: break-word;
+}
+
+.note-link:hover {
+    background-color: var(--color-primary, #60a5fa);
+    color: #ffffff;
+    box-shadow: 0 2px 6px rgba(96, 165, 250, 0.3);
+}
