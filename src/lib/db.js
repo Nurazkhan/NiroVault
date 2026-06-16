@@ -1,509 +1,307 @@
-import {
-    collection,
-    doc,
-    addDoc,
-    getDoc,
-    getDocs,
-    updateDoc,
-    deleteDoc,
-    query,
-    where,
-    orderBy,
-    serverTimestamp,
-    writeBatch
-} from 'firebase/firestore';
-import {
-    ref,
-    uploadBytes,
-    getDownloadURL,
-    deleteObject
-} from 'firebase/storage';
-import { db, storage, auth } from './firebase';
+import { apiRequest } from './apiClient';
+import { createBlobPath, uploadFile } from './blob';
 
-// Helper to get current user ref
-const getUserRef = () => {
-    const user = auth.currentUser;
-    if (!user) throw new Error('User not authenticated');
-    return doc(db, 'users', user.uid);
-};
+function asDate(value) {
+    return value ? new Date(value) : new Date();
+}
+
+function withDates(item, fields = ['createdAt', 'updatedAt']) {
+    if (!item) return item;
+    const copy = { ...item };
+    for (const field of fields) {
+        if (copy[field]) copy[field] = asDate(copy[field]);
+    }
+    return copy;
+}
+
+async function list(type, options = {}) {
+    const { items } = await apiRequest({ action: 'list', type, ...options });
+    return items;
+}
+
+async function get(type, id) {
+    const { item } = await apiRequest({ action: 'get', type, id });
+    if (!item) throw new Error('Record not found');
+    return item;
+}
+
+async function create(type, data, options = {}) {
+    const { item } = await apiRequest({ action: 'create', type, data, ...options });
+    return item;
+}
+
+async function update(type, id, data) {
+    const { item } = await apiRequest({ action: 'update', type, id, data });
+    return item;
+}
+
+async function remove(type, id, cascade = false) {
+    await apiRequest({ action: 'delete', type, id, cascade });
+}
 
 // Project operations
 export const projectOps = {
     async create(data) {
-        const userRef = getUserRef();
-        const projectsRef = collection(userRef, 'projects');
-
-        // Use batch to create project and initial version transactionally-ish
-        const batch = writeBatch(db);
-
-        const newProjectRef = doc(projectsRef);
-        const projectId = newProjectRef.id;
-
         const projectData = {
             name: data.name,
             description: data.description || '',
-            thumbnailUrl: null, // Will update if thumbnail exists
+            thumbnailUrl: null,
             folderId: data.folderId || null,
             tags: data.tags || [],
-            createdAt: serverTimestamp(),
-            updatedAt: serverTimestamp(),
             currentVersionId: null
         };
 
-        // Handle thumbnail upload if present
+        const project = await create('project', projectData);
+
         if (data.thumbnail instanceof File) {
-            const storageRef = ref(storage, `users/${auth.currentUser.uid}/thumbnails/${projectId}/${data.thumbnail.name}`);
-            await uploadBytes(storageRef, data.thumbnail);
-            projectData.thumbnailUrl = await getDownloadURL(storageRef);
+            const pathname = createBlobPath('thumbnails', project.id, data.thumbnail.name);
+            const thumbnailUrl = await uploadFile(data.thumbnail, pathname);
+            await update('project', project.id, { thumbnailUrl });
         }
 
-        // Create initial version ref
-        const versionsRef = collection(newProjectRef, 'versions');
-        const newVersionRef = doc(versionsRef);
-        const versionId = newVersionRef.id;
-
-        projectData.currentVersionId = versionId;
-
-        batch.set(newProjectRef, projectData);
-        batch.set(newVersionRef, {
+        const version = await create('version', {
             name: 'v1.0',
             description: 'Initial version',
             parentVersionId: null,
             todos: [],
-            errors: [],
-            createdAt: serverTimestamp()
-        });
+            errors: []
+        }, { parentProjectId: project.id });
 
-        await batch.commit();
-        return projectId;
+        await update('project', project.id, { currentVersionId: version.id });
+        return project.id;
     },
 
     async getAll() {
-        const user = auth.currentUser;
-        if (!user) return [];
-
-        const userRef = doc(db, 'users', user.uid);
-        const q = query(collection(userRef, 'projects'), orderBy('updatedAt', 'desc'));
-        const snapshot = await getDocs(q);
-
-        return snapshot.docs.map(doc => ({
-            id: doc.id,
-            ...doc.data(),
-            // Convert timestamps to Date objects for compatibility
-            createdAt: doc.data().createdAt?.toDate() || new Date(),
-            updatedAt: doc.data().updatedAt?.toDate() || new Date()
-        }));
+        const items = await list('project', { orderBy: 'updatedAt', direction: 'desc' });
+        return items.map((item) => withDates(item));
     },
 
     async getById(id) {
-        const userRef = getUserRef();
-        const docRef = doc(userRef, 'projects', id);
-        const docSnap = await getDoc(docRef);
-
-        if (docSnap.exists()) {
-            return {
-                id: docSnap.id,
-                ...docSnap.data(),
-                createdAt: docSnap.data().createdAt?.toDate(),
-                updatedAt: docSnap.data().updatedAt?.toDate()
-            };
-        }
-        throw new Error('Project not found');
+        return withDates(await get('project', id));
     },
 
     async update(id, data) {
-        const userRef = getUserRef();
-        const docRef = doc(userRef, 'projects', id);
+        const updateData = { ...data };
 
-        const updateData = {
-            ...data,
-            updatedAt: serverTimestamp()
-        };
-
-        // Handle thumbnail update
         if (data.thumbnail instanceof File) {
-            const storageRef = ref(storage, `users/${auth.currentUser.uid}/thumbnails/${id}/${data.thumbnail.name}`);
-            await uploadBytes(storageRef, data.thumbnail);
-            updateData.thumbnailUrl = await getDownloadURL(storageRef);
+            const pathname = createBlobPath('thumbnails', id, data.thumbnail.name);
+            updateData.thumbnailUrl = await uploadFile(data.thumbnail, pathname);
             delete updateData.thumbnail;
         }
 
-        await updateDoc(docRef, updateData);
+        await update('project', id, updateData);
     },
 
     async delete(id) {
-        const userRef = getUserRef();
-        const projectRef = doc(userRef, 'projects', id);
-
-        // Note: Firestore doesn't strictly support recursive delete from client easily
-        // Taking a simplified approach: just delete the project doc. 
-        // Subcollections (versions/resources) become orphaned in Firestore console but effectively gone for the app.
-        // For production, use cloud functions for recursive delete.
-        await deleteDoc(projectRef);
-        // Also simpler to not delete storage files manually here due to complex paths, 
-        // but typically should cleanup storage.
+        await remove('project', id, true);
     }
 };
 
 // Version operations
 export const versionOps = {
     async create(projectId, data) {
-        const userRef = getUserRef();
-        const versionsRef = collection(userRef, 'projects', projectId, 'versions');
-
-        // Create version
-        const docRef = await addDoc(versionsRef, {
+        const version = await create('version', {
             name: data.name,
             description: data.description || '',
             parentVersionId: data.parentVersionId || null,
             todos: data.todos || [],
-            errors: data.errors || [],
-            createdAt: serverTimestamp()
-        });
+            errors: data.errors || []
+        }, { parentProjectId: projectId });
 
-        // Copy resources if requested
         if (data.parentVersionId && data.copyResources) {
-            // Fetch parent resources
             const resources = await resourceOps.getByVersion(projectId, data.parentVersionId);
-            const newVersionId = docRef.id;
-
-            // Create copies (references)
-            const batch = writeBatch(db);
-            const newResourcesRef = collection(userRef, 'projects', projectId, 'versions', newVersionId, 'resources');
-
-            resources.forEach(res => {
-                const newResRef = doc(newResourcesRef);
-                batch.set(newResRef, {
-                    name: res.name,
-                    type: res.type,
-                    url: res.url, // Reusing the same storage URL!
-                    metadata: res.metadata,
-                    createdAt: serverTimestamp()
-                });
-            });
-
-            await batch.commit();
+            await Promise.all(resources.map((resource) => create('resource', {
+                name: resource.name,
+                type: resource.type,
+                url: resource.url,
+                metadata: resource.metadata || {}
+            }, {
+                parentProjectId: projectId,
+                parentVersionId: version.id
+            })));
         }
 
-        return docRef.id;
+        return version.id;
     },
 
     async getByProject(projectId) {
-        const userRef = getUserRef();
-        const q = query(collection(userRef, 'projects', projectId, 'versions'), orderBy('createdAt', 'desc'));
-        const snapshot = await getDocs(q);
-        return snapshot.docs.map(doc => ({
-            id: doc.id,
-            ...doc.data(),
-            createdAt: doc.data().createdAt?.toDate()
-        }));
+        const items = await list('version', {
+            parentProjectId: projectId,
+            orderBy: 'createdAt',
+            direction: 'desc'
+        });
+        return items.map((item) => withDates(item, ['createdAt']));
     },
 
     async getById(projectId, id) {
-        // Need projectId to find the path
-        const userRef = getUserRef();
-        const docRef = doc(userRef, 'projects', projectId, 'versions', id);
-        const docSnap = await getDoc(docRef);
-        return {
-            id: docSnap.id,
-            ...docSnap.data(),
-            createdAt: docSnap.data().createdAt?.toDate()
-        };
+        return withDates(await get('version', id), ['createdAt']);
     },
 
     async update(projectId, id, data) {
-        const userRef = getUserRef();
-        const docRef = doc(userRef, 'projects', projectId, 'versions', id);
-        await updateDoc(docRef, data);
+        await update('version', id, data);
     },
 
     async delete(projectId, id) {
-        const userRef = getUserRef();
-        const docRef = doc(userRef, 'projects', projectId, 'versions', id);
-        await deleteDoc(docRef);
+        await remove('version', id, true);
     }
 };
 
 // Resource operations
 export const resourceOps = {
     async create(projectId, versionId, data) {
-        const userRef = getUserRef();
-        const resourcesRef = collection(userRef, 'projects', projectId, 'versions', versionId, 'resources');
-
         let url = data.url || null;
 
-        // Upload file if present
         if (data.data instanceof File) {
-            const storagePath = `users/${auth.currentUser.uid}/projects/${projectId}/versions/${versionId}/${Date.now()}_${data.name}`;
-            const storageRef = ref(storage, storagePath);
-            await uploadBytes(storageRef, data.data);
-            url = await getDownloadURL(storageRef);
+            const pathname = createBlobPath('projects', projectId, 'versions', versionId, `${Date.now()}_${data.name}`);
+            url = await uploadFile(data.data, pathname);
         }
 
-        const docRef = await addDoc(resourcesRef, {
+        const resource = await create('resource', {
             name: data.name,
             type: data.type,
-            url: url,
-            metadata: data.metadata || {},
-            createdAt: serverTimestamp()
+            url,
+            metadata: data.metadata || {}
+        }, {
+            parentProjectId: projectId,
+            parentVersionId: versionId
         });
 
-        return docRef.id;
+        return resource.id;
     },
 
     async getByVersion(projectId, versionId) {
-        const userRef = getUserRef();
-        const resourcesRef = collection(userRef, 'projects', projectId, 'versions', versionId, 'resources');
-        const q = query(resourcesRef, orderBy('createdAt', 'desc'));
-        const snapshot = await getDocs(q);
+        const items = await list('resource', {
+            parentProjectId: projectId,
+            parentVersionId: versionId,
+            orderBy: 'createdAt',
+            direction: 'desc'
+        });
 
-        // Note: We return 'data' as null because we don't download files automatically
-        // The UI should use 'url' to fetch or display
-        return snapshot.docs.map(doc => ({
-            id: doc.id,
-            ...doc.data(),
-            data: null, // Placeholder to match old API structure if needed
-            createdAt: doc.data().createdAt?.toDate()
+        return items.map((item) => ({
+            ...withDates(item, ['createdAt']),
+            data: null
         }));
     },
 
     async update(projectId, versionId, id, data) {
-        const userRef = getUserRef();
-        const docRef = doc(userRef, 'projects', projectId, 'versions', versionId, 'resources', id);
-        await updateDoc(docRef, data);
+        await update('resource', id, data);
     },
 
     async delete(projectId, versionId, id) {
-        const userRef = getUserRef();
-        const docRef = doc(userRef, 'projects', projectId, 'versions', versionId, 'resources', id);
-
-        // Optional: delete from storage
-        const docSnap = await getDoc(docRef);
-        if (docSnap.exists() && docSnap.data().url && !docSnap.data().url.startsWith('http')) {
-            // Only try to delete if it looks like a storage Ref (logic is complex here without storing path)
-            // Skipping storage deletion for now to avoid accidental deletes of shared resources
-        }
-
-        await deleteDoc(docRef);
+        await remove('resource', id);
     }
 };
 
 // Folder operations
 export const folderOps = {
     async create(name) {
-        const userRef = getUserRef();
-        const foldersRef = collection(userRef, 'folders');
-        const docRef = await addDoc(foldersRef, {
-            name,
-            createdAt: serverTimestamp()
-        });
-        return docRef.id;
+        const folder = await create('folder', { name });
+        return folder.id;
     },
 
     async getAll() {
-        const user = auth.currentUser;
-        if (!user) return [];
-        const userRef = doc(db, 'users', user.uid);
-        const q = query(collection(userRef, 'folders'), orderBy('name'));
-        const snapshot = await getDocs(q);
-        return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        return list('folder', { orderBy: 'name', direction: 'asc' });
     },
 
     async delete(id) {
-        const userRef = getUserRef();
-        await deleteDoc(doc(userRef, 'folders', id));
+        await remove('folder', id);
     }
 };
 
 // Inspiration operations
 export const inspirationOps = {
     async create(data) {
-        const userRef = getUserRef();
-        const inspirationsRef = collection(userRef, 'inspirations');
-
         let imageUrl = null;
 
-        // Upload image if present
         if (data.image instanceof File) {
-            const storagePath = `users/${auth.currentUser.uid}/inspirations/${Date.now()}_${data.image.name}`;
-            const storageRef = ref(storage, storagePath);
-            await uploadBytes(storageRef, data.image);
-            imageUrl = await getDownloadURL(storageRef);
+            const pathname = createBlobPath('inspirations', `${Date.now()}_${data.image.name}`);
+            imageUrl = await uploadFile(data.image, pathname);
         }
 
-        const docRef = await addDoc(inspirationsRef, {
+        const inspiration = await create('inspiration', {
             title: data.title || '',
             description: data.description || '',
             tags: data.tags || [],
             imageUrl,
-            url: data.url || '',
-            createdAt: serverTimestamp(),
-            updatedAt: serverTimestamp()
+            url: data.url || ''
         });
 
-        return docRef.id;
+        return inspiration.id;
     },
 
     async getAll() {
-        const user = auth.currentUser;
-        if (!user) return [];
-
-        const userRef = doc(db, 'users', user.uid);
-        const q = query(collection(userRef, 'inspirations'), orderBy('createdAt', 'desc'));
-        const snapshot = await getDocs(q);
-
-        return snapshot.docs.map(d => ({
-            id: d.id,
-            ...d.data(),
-            createdAt: d.data().createdAt?.toDate() || new Date(),
-            updatedAt: d.data().updatedAt?.toDate() || new Date()
-        }));
+        const items = await list('inspiration', { orderBy: 'createdAt', direction: 'desc' });
+        return items.map((item) => withDates(item));
     },
 
     async update(id, data) {
-        const userRef = getUserRef();
-        const docRef = doc(userRef, 'inspirations', id);
+        const updateData = { ...data };
 
-        const updateData = { ...data, updatedAt: serverTimestamp() };
-
-        // Handle image update
         if (data.image instanceof File) {
-            const storagePath = `users/${auth.currentUser.uid}/inspirations/${Date.now()}_${data.image.name}`;
-            const storageRef = ref(storage, storagePath);
-            await uploadBytes(storageRef, data.image);
-            updateData.imageUrl = await getDownloadURL(storageRef);
+            const pathname = createBlobPath('inspirations', `${Date.now()}_${data.image.name}`);
+            updateData.imageUrl = await uploadFile(data.image, pathname);
             delete updateData.image;
         }
 
-        await updateDoc(docRef, updateData);
+        await update('inspiration', id, updateData);
     },
 
     async delete(id) {
-        const userRef = getUserRef();
-        await deleteDoc(doc(userRef, 'inspirations', id));
+        await remove('inspiration', id);
     }
 };
 
-// Global task operations (not tied to any project)
+// Global task operations
 export const globalTaskOps = {
     async create(data) {
-        const userRef = getUserRef();
-        const tasksRef = collection(userRef, 'globalTasks');
-        const docRef = await addDoc(tasksRef, {
+        const task = await create('globalTask', {
             text: data.text,
-            completed: false,
-            createdAt: serverTimestamp()
+            completed: false
         });
-        return docRef.id;
+        return task.id;
     },
 
     async getAll() {
-        const user = auth.currentUser;
-        if (!user) return [];
-        const userRef = doc(db, 'users', user.uid);
-        const q = query(collection(userRef, 'globalTasks'), orderBy('createdAt', 'desc'));
-        const snapshot = await getDocs(q);
-        return snapshot.docs.map(d => ({
-            id: d.id,
-            ...d.data(),
-            createdAt: d.data().createdAt?.toDate() || new Date()
-        }));
+        const items = await list('globalTask', { orderBy: 'createdAt', direction: 'desc' });
+        return items.map((item) => withDates(item, ['createdAt']));
     },
 
     async update(id, data) {
-        const userRef = getUserRef();
-        await updateDoc(doc(userRef, 'globalTasks', id), data);
+        await update('globalTask', id, data);
     },
 
     async delete(id) {
-        const userRef = getUserRef();
-        await deleteDoc(doc(userRef, 'globalTasks', id));
+        await remove('globalTask', id);
     }
 };
 
-// Global note operations (not tied to any project)
+// Global note operations
 export const globalNoteOps = {
     async create(data) {
-        const userRef = getUserRef();
-        const notesRef = collection(userRef, 'globalNotes');
-        const docRef = await addDoc(notesRef, {
-            content: data.content,
-            createdAt: serverTimestamp()
+        const note = await create('globalNote', {
+            content: data.content
         });
-        return docRef.id;
+        return note.id;
     },
 
     async getAll() {
-        const user = auth.currentUser;
-        if (!user) return [];
-        const userRef = doc(db, 'users', user.uid);
-        const q = query(collection(userRef, 'globalNotes'), orderBy('createdAt', 'desc'));
-        const snapshot = await getDocs(q);
-        return snapshot.docs.map(d => ({
-            id: d.id,
-            ...d.data(),
-            createdAt: d.data().createdAt?.toDate() || new Date()
-        }));
+        const items = await list('globalNote', { orderBy: 'createdAt', direction: 'desc' });
+        return items.map((item) => withDates(item, ['createdAt']));
     },
 
     async update(id, data) {
-        const userRef = getUserRef();
-        await updateDoc(doc(userRef, 'globalNotes', id), data);
+        await update('globalNote', id, data);
     },
 
     async delete(id) {
-        const userRef = getUserRef();
-        await deleteDoc(doc(userRef, 'globalNotes', id));
+        await remove('globalNote', id);
     }
 };
 
-// Aggregate all tasks and notes from every project's current version
 export const getAllProjectTasksAndNotes = async () => {
-    const user = auth.currentUser;
-    if (!user) return [];
-
-    const userRef = doc(db, 'users', user.uid);
-    const projectsSnap = await getDocs(
-        query(collection(userRef, 'projects'), orderBy('updatedAt', 'desc'))
-    );
-
-    const results = [];
-
-    for (const projDoc of projectsSnap.docs) {
-        const project = { id: projDoc.id, ...projDoc.data() };
-        if (!project.currentVersionId) continue;
-
-        try {
-            const versionRef = doc(userRef, 'projects', project.id, 'versions', project.currentVersionId);
-            const versionSnap = await getDoc(versionRef);
-            if (!versionSnap.exists()) continue;
-
-            const versionData = versionSnap.data();
-
-            // Get notes (resources with type 'note')
-            const resourcesSnap = await getDocs(
-                query(
-                    collection(userRef, 'projects', project.id, 'versions', project.currentVersionId, 'resources'),
-                    where('type', '==', 'note')
-                )
-            );
-            const notes = resourcesSnap.docs.map(d => ({
-                id: d.id,
-                ...d.data(),
-                createdAt: d.data().createdAt?.toDate() || new Date()
-            }));
-
-            results.push({
-                projectId: project.id,
-                projectName: project.name,
-                versionId: project.currentVersionId,
-                todos: versionData.todos || [],
-                notes
-            });
-        } catch (err) {
-            console.error(`Failed to load data for project ${project.name}:`, err);
-        }
-    }
-
-    return results;
+    const { items } = await apiRequest({ action: 'aggregateTasksAndNotes' });
+    return items.map((entry) => ({
+        ...entry,
+        notes: (entry.notes || []).map((note) => withDates(note, ['createdAt']))
+    }));
 };

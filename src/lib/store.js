@@ -1,7 +1,23 @@
 import { create } from 'zustand';
 import { projectOps, versionOps, resourceOps, folderOps, inspirationOps, globalTaskOps, globalNoteOps } from './db';
-import { auth } from './firebase';
-import { onAuthStateChanged, signInWithPopup, GoogleAuthProvider, signOut } from 'firebase/auth';
+
+const PROFILE_KEY = 'nirovault.profile';
+
+function getStoredProfile() {
+    const saved = localStorage.getItem(PROFILE_KEY);
+    if (saved) return JSON.parse(saved);
+
+    return null;
+}
+
+function createProfile() {
+    return {
+        uid: 'vercel-default',
+        email: import.meta.env.VITE_NIROVAULT_USER_EMAIL || 'vercel@nirovault.local',
+        displayName: import.meta.env.VITE_NIROVAULT_USER_NAME || 'NiroVault User',
+        photoURL: null
+    };
+}
 
 export const useStore = create((set, get) => ({
     // Auth State
@@ -15,8 +31,8 @@ export const useStore = create((set, get) => ({
     currentVersion: null,
     versions: [],
     resources: [],
-    view: 'list', // 'list' | 'grid'
-    currentView: 'projects', // 'projects' | 'inspiration' | 'tasks'
+    view: 'list',
+    currentView: 'projects',
     sidebarOpen: true,
     isLoading: false,
     inspirations: [],
@@ -25,34 +41,47 @@ export const useStore = create((set, get) => ({
 
     // Auth Actions
     initAuth: () => {
-        const unsubscribe = onAuthStateChanged(auth, async (user) => {
-            set({ user, authLoading: false });
-            if (user) {
-                await get().loadProjects();
-                await get().loadFolders();
-                await get().loadInspirations();
-                await get().loadGlobalTasks();
-                await get().loadGlobalNotes();
-            } else {
-                set({ projects: [], folders: [], currentProject: null, inspirations: [], globalTasks: [], globalNotes: [] });
-            }
-        });
-        return unsubscribe;
+        const user = getStoredProfile();
+        set({ user, authLoading: false });
+        if (user) {
+            Promise.all([
+                get().loadProjects(),
+                get().loadFolders(),
+                get().loadInspirations(),
+                get().loadGlobalTasks(),
+                get().loadGlobalNotes()
+            ]).catch((error) => console.error('Initial data load failed:', error));
+        }
+        return () => {};
     },
 
     login: async () => {
-        try {
-            const provider = new GoogleAuthProvider();
-            await signInWithPopup(auth, provider);
-        } catch (error) {
-            console.error('Login failed:', error);
-            throw error;
-        }
+        const profile = createProfile();
+        localStorage.setItem(PROFILE_KEY, JSON.stringify(profile));
+        set({ user: profile });
+        await Promise.all([
+            get().loadProjects(),
+            get().loadFolders(),
+            get().loadInspirations(),
+            get().loadGlobalTasks(),
+            get().loadGlobalNotes()
+        ]);
     },
 
     logout: async () => {
-        await signOut(auth);
-        set({ user: null, projects: [], folders: [] });
+        localStorage.removeItem(PROFILE_KEY);
+        set({
+            user: null,
+            projects: [],
+            folders: [],
+            currentProject: null,
+            currentVersion: null,
+            versions: [],
+            resources: [],
+            inspirations: [],
+            globalTasks: [],
+            globalNotes: []
+        });
     },
 
     // View actions
@@ -112,10 +141,9 @@ export const useStore = create((set, get) => ({
             let resources = [];
 
             if (project.currentVersionId) {
-                // Find version in the list first to save a read
-                const v = versions.find(v => v.id === project.currentVersionId);
-                if (v) {
-                    currentVersion = v;
+                const version = versions.find((item) => item.id === project.currentVersionId);
+                if (version) {
+                    currentVersion = version;
                     resources = await resourceOps.getByVersion(id, project.currentVersionId);
                 }
             }
@@ -165,11 +193,9 @@ export const useStore = create((set, get) => ({
 
     selectVersion: async (id) => {
         const projectId = get().currentProject.id;
-        // Optimization: find in loaded versions
-        const version = get().versions.find(v => v.id === id) || await versionOps.getById(projectId, id);
+        const version = get().versions.find((item) => item.id === id) || await versionOps.getById(projectId, id);
         const resources = await resourceOps.getByVersion(projectId, id);
 
-        // Update project's current version local state and DB
         if (get().currentProject) {
             await projectOps.update(projectId, { currentVersionId: id });
         }
@@ -181,15 +207,12 @@ export const useStore = create((set, get) => ({
         const projectId = get().currentProject.id;
         await versionOps.update(projectId, id, data);
 
-        if (get().currentVersion?.id === id) {
-            // Refresh current version
-            const versions = await versionOps.getByProject(projectId);
-            const version = versions.find(v => v.id === id);
-            set({ currentVersion: version, versions });
-        } else {
-            const versions = await versionOps.getByProject(projectId);
-            set({ versions });
-        }
+        const versions = await versionOps.getByProject(projectId);
+        const version = versions.find((item) => item.id === id);
+        set({
+            versions,
+            ...(get().currentVersion?.id === id ? { currentVersion: version } : {})
+        });
     },
 
     deleteVersion: async (id) => {
@@ -210,7 +233,6 @@ export const useStore = create((set, get) => ({
         set({ resources });
     },
 
-    // Update resource metadata (not file content)
     updateResource: async (id, data) => {
         const projectId = get().currentProject.id;
         const versionId = get().currentVersion.id;
