@@ -278,8 +278,13 @@ export const globalTaskOps = {
 // Global note operations
 export const globalNoteOps = {
     async create(data) {
+        const uploadedUrls = await uploadNoteImages(data.images);
+
         const note = await create('globalNote', {
-            content: data.content
+            content: data.content || '',
+            tags: data.tags || [],
+            projectIds: data.projectIds || [],
+            imageUrls: [...(data.imageUrls || []), ...uploadedUrls]
         });
         return note.id;
     },
@@ -290,13 +295,30 @@ export const globalNoteOps = {
     },
 
     async update(id, data) {
-        await update('globalNote', id, data);
+        const updateData = { ...data };
+        delete updateData.images;
+
+        if (data.images && data.images.length) {
+            const uploadedUrls = await uploadNoteImages(data.images);
+            updateData.imageUrls = [...(data.imageUrls || []), ...uploadedUrls];
+        }
+
+        await update('globalNote', id, updateData);
     },
 
     async delete(id) {
         await remove('globalNote', id);
     }
 };
+
+async function uploadNoteImages(images) {
+    if (!images || !images.length) return [];
+    const files = Array.from(images).filter((file) => file instanceof File);
+    return Promise.all(files.map((file) => {
+        const pathname = createBlobPath('global-notes', `${Date.now()}_${file.name}`);
+        return uploadFile(file, pathname);
+    }));
+}
 
 export const getAllProjectTasksAndNotes = async () => {
     const { items } = await apiRequest({ action: 'aggregateTasksAndNotes' });

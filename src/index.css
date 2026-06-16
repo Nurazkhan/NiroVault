@@ -100,6 +100,18 @@ body {
   overflow-x: hidden;
 }
 
+/* Ambient background glow — subtle depth behind the whole app */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(60rem 40rem at 78% -8%, rgba(99, 102, 241, 0.10), transparent 60%),
+    radial-gradient(50rem 36rem at -6% 100%, rgba(139, 92, 246, 0.08), transparent 60%);
+}
+
 #root {
   min-height: 100vh;
   display: flex;
@@ -429,4 +441,40 @@ img, video {
   .grid-cols-2, .grid-cols-3, .grid-cols-4 {
     grid-template-columns: 1fr;
   }
+}
+
+/* ============================================
+   Polish — refined surfaces & accents
+   ============================================ */
+
+.btn-xs {
+  padding: var(--space-xs);
+  font-size: var(--text-xs);
+  border-radius: var(--radius-sm);
+}
+
+/* Cards lift a touch more invitingly */
+.card {
+  position: relative;
+}
+
+.card:hover {
+  border-color: var(--color-border-hover);
+  box-shadow: var(--shadow-md), 0 0 0 1px var(--color-accent-glow);
+}
+
+/* Badges with a tiny bit more contrast */
+.badge-sm {
+  padding: 0 var(--space-xs);
+  font-size: 0.68rem;
+}
+
+/* Buttons: snappier press feedback */
+.btn:active {
+  transform: translateY(0) scale(0.98);
+}
+
+/* Inputs get a softer resting border */
+.input:hover:not(:focus) {
+  border-color: var(--color-border-hover);
 }

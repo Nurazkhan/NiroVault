@@ -313,13 +313,15 @@ export const useStore = create((set, get) => ({
         }
     },
 
-    addGlobalNote: async (content) => {
-        await globalNoteOps.create({ content });
+    addGlobalNote: async (data) => {
+        const payload = typeof data === 'string' ? { content: data } : data;
+        await globalNoteOps.create(payload);
         await get().loadGlobalNotes();
     },
 
-    updateGlobalNote: async (id, content) => {
-        await globalNoteOps.update(id, { content });
+    updateGlobalNote: async (id, data) => {
+        const payload = typeof data === 'string' ? { content: data } : data;
+        await globalNoteOps.update(id, payload);
         await get().loadGlobalNotes();
     },
 

@@ -6,6 +6,7 @@ import ProjectDetail from './components/ProjectDetail';
 import CreateProjectModal from './components/CreateProjectModal';
 import InspirationBoard from './components/InspirationBoard';
 import GlobalTasksPage from './components/GlobalTasksPage';
+import GlobalNotesPage from './components/GlobalNotesPage';
 import AuthGuard from './components/AuthGuard';
 import ExportImportModal from './components/ExportImportModal';
 import './App.css';
@@ -31,6 +32,9 @@ function App() {
         }
         if (currentView === 'tasks') {
             return <GlobalTasksPage />;
+        }
+        if (currentView === 'notes') {
+            return <GlobalNotesPage />;
         }
         if (currentProject) {
             return <ProjectDetail />;

@@ -13,6 +13,7 @@ import {
     LogOut,
     Lightbulb,
     CheckSquare,
+    StickyNote,
     HardDriveDownload
 } from 'lucide-react';
 
@@ -216,7 +217,17 @@ function Sidebar({ onCreateProject, onExportImport }) {
                     }}
                 >
                     <CheckSquare size={16} />
-                    <span>Tasks & Notes</span>
+                    <span>Tasks</span>
+                </button>
+                <button
+                    className={`btn btn-ghost nav-item ${currentView === 'notes' ? 'active' : ''}`}
+                    onClick={() => {
+                        selectProject(null);
+                        setCurrentView('notes');
+                    }}
+                >
+                    <StickyNote size={16} />
+                    <span>Notes</span>
                 </button>
                 <button
                     className="btn btn-ghost nav-item"
